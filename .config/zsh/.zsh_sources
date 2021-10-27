@@ -1,0 +1,115 @@
+#!/usr/bin/env zsh
+
+export PATH=$PATH:$HOME/.local/bin
+
+#----------------------------------------------------
+# NEOVIM
+#----------------------------------------------------
+export EDITOR=nvim
+# export EDITOR="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage"
+# man pages as neovim
+# export MANPAGER="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage +Man!"
+export MANPAGER="nvim +Man!"
+export PATH="$PATH:$HOME/neovim/bin"
+
+#Wine Config
+export WINEPREFIX=~/GameZ/Wine
+
+# Wine Config
+export WINEPREFIX=~/GameZ/Wine
+
+#For iw---------------------------------------------
+path+='/sbin:/usr/sbin' # for iw
+
+#----------------------------------------------------
+# zoxide - jumper
+#----------------------------------------------------
+export _ZO_DATA_DIR="$HOME/.config/zoxide"
+eval "$(zoxide init --cmd zj zsh)"
+# zoxide import --from z $HOME/.config/z-jump/
+#----------------------------------------------------
+# z - jumper
+#----------------------------------------------------
+# export _Z_DATA="$HOME/.config/z-jump/.z"
+# export _Z_CMD=zj
+# . /home/ACM-Lab/.config/z-jump/z.sh
+
+#----------------------------------------------------
+# For ROOT
+#----------------------------------------------------
+export ROOTSYS="$HOME/Softwares/Installed/Build/root"
+
+export PATH=$ROOTSYS/bin:$PATH
+
+export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+
+#----------------------------------------------------
+# Pythia 8
+#----------------------------------------------------
+export PYTHIA8="$HOME/Softwares/Installed/Pythia/pythia8303"
+export PYTHIA8DATA=$PYTHIA8/share/Pythia8/xmldoc
+export PATH=$PYTHIA8/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PYTHIA8/lib
+
+#----------------------------------------------------
+# GO language
+#----------------------------------------------------
+export GOPATH=${HOME}/go
+export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin
+
+#----------------------------------------------------
+#Tmux 
+#Tmuxp default path
+#----------------------------------------------------
+export TMUXP_CONFIGDIR=$HOME/.config/tmux/tmuxp
+
+#----------------------------------------------------
+#EIC commands config
+#----------------------------------------------------
+if [ -f ~/ActivateEIC ]; then
+    source ~/ActivateEIC
+fi
+
+#--------------------------------------------------------
+#	fzf / Fuzzy Finder 
+#--------------------------------------------------------
+
+export MY_FZF_PATH=$HOME/Softwares/Source/Terminal/fzf
+
+#source /usr/share/bash-completion/completions/fzf
+#source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f $ZDOTDIR/.fzf.zsh ] && source $ZDOTDIR/.fzf.zsh
+#if [ -f ~/.fzf_config ]; then
+#    source ~/.fzf_config
+#fi
+
+#----------------------------------------------------
+#Starship config file
+#----------------------------------------------------
+export STARSHIP_CONFIG=~/.config/starshipPrompt/starship.toml
+
+################## tmux extra configurations #######################
+#tmux extra config
+if [ -f ~/.tmux_extra ]; then
+    source ~/.tmux_extra
+fi
+
+################# vifm terminal file manager ######################
+#vifm config
+if [ -f ~/.vifm_config ]; then
+    source ~/.vifm_config
+fi
+
+################## nnn Terminal File manager ########################
+#nnn config
+if [ -f ~/.nnn_config ]; then
+    source ~/.nnn_config
+fi
+
+################## dotbare bare git repo manager ##################
+#dotbare config
+if [ -f ~/.dotbare_config ]; then
+    source ~/.dotbare_config
+fi
+
+

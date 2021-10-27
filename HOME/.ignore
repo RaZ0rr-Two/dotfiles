@@ -1,0 +1,9 @@
+.rpmdb/*
+**/.ccls-cache/*
+**/ccls-cache/*
+**/nvim/.undodir/*
+**/nvim/.mkViewDir/*
+**/nvim/.session/*
+**/nvim/swap/*
+**/Trash/*
+**/TabSessionManager - Backup/*

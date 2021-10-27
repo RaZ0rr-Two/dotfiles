@@ -1,0 +1,9 @@
+pane	WINDOWS	1	:window1	1	:*	1	:/home/ACM-Lab	1	nvim	:/tmp/.mount_nvim.aXJMj4H/usr/bin/nvim .config/tmux/colors.tmux
+pane	WINDOWS	2	:window2	0	:	1	:/home/ACM-Lab/.config/nvim/general	1	nvim	:/tmp/.mount_nvim.aP9o2F1/usr/bin/nvim
+pane	WINDOWS	3	:window4	0	:-	1	:/home/ACM-Lab	1	bash	:-bash
+pane	WINDOWS	4	:vf	0	:	1	:/home/ACM-Lab	1	bash	:
+window	WINDOWS	1	1	:*	c29d,75x37,0,0,0
+window	WINDOWS	2	0	:	b03e,151x41,0,0,1
+window	WINDOWS	3	0	:-	c2a0,75x37,0,0,3
+window	WINDOWS	4	0	:	e182,75x37,0,0,23
+state	WINDOWS	

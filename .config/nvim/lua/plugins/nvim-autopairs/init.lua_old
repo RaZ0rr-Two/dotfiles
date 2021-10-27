@@ -1,0 +1,48 @@
+
+
+local cfg = {
+		disable_filetype = {"fzf", "TelescopePrompt" , "vim" },
+		-- ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", "") -- default value
+		-- enable_moveright = true -- default value
+		-- enable_afterquote = true  -- default value (add bracket pairs after quote)
+		-- enable_check_bracket_line = true  --- default value (check bracket in same line)
+		-- check_ts = false --default value
+		fast_wrap = {
+		    map = '<M-e>',
+		    chars = { '{', '[', '(', '"', "'" },
+		    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
+		    offset = 0, -- Offset from pattern match
+		    end_key = '$',
+		    keys = 'qwertyuiopzxcvbnmasdfghjkl',
+		    check_comma = true,
+		    hightlight = 'Search'
+		},
+
+	    }
+
+require('nvim-autopairs').setup(cfg)
+
+-- require('nvim-autopairs').setup({
+--   disable_filetype = { "TelescopePrompt" , "vim" },
+-- })
+
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+-- skip it, if you use another global object
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm=function()
+    if vim.fn.pumvisible() ~= 0  then
+	if vim.fn.complete_info()["selected"] ~= -1 then
+	    return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+	else
+	    return npairs.esc("<cr>")
+	end
+    else
+	return npairs.autopairs_cr()
+    end
+end
+
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})

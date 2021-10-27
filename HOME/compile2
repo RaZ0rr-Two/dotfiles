@@ -1,0 +1,6 @@
+#!/bin/bash
+g++ "${1}" $(root-config --cflags --auxcflags --ldflags --libs --glibs) $(/home/ACM-Lab/Softwares/Installed/Pythia/pythia8303/bin/pythia8-config --cxxflags --ldflags --libs)
+exit '0'
+[--bindir] [--libdir] [--incdir] [--etcdir] [--noauxcflags] [--noauxlibs] [--noldflags] [--has-<feature>] [--arch] [--platform] [--dicttype] [--config] [--features] [--svn-revision] [--python-version] [--ncpu] [--cc] [--cxx] [--f77] [--ld ] [--help]
+
+

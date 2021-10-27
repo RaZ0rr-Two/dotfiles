@@ -1,0 +1,54 @@
+# terminal emulator
+# control + alt + a ; control + alt + a
+control + alt + Return
+    alacritty
+
+#control + alt + t
+#    wezterm
+
+alt + control + space ; {t,f,o,m}
+    {thunar,firefox,okular,mpv}
+
+# program launcher
+control + alt + r ; {a,c,r,w,f}
+    rofi {-show combi,-theme spotlight-dark -show calc -modi "calc:rofi-bcalc" -no-show-match -no-sort,-show run -modi run -theme rounded-red-dark,-theme nord-oneline -show window -modi window, -show filebrowser}
+
+control + alt + r ; s
+    slip
+
+#jgmenu
+alt + button3
+    jgmenu_run apps | jgmenu --simple
+
+# make sxhkd reload its configuration files:
+control + alt +  s ; s
+    pkill -USR1 -x sxhkd
+
+# control+alt+h;w
+#     echo 'Hello World'\n
+
+# control+alt+s ; u
+#     XF86AudioLowerVolume
+
+control + alt + {u,d}
+    pactl set-sink-volume @DEFAULT_SINK@ {+,-}2%
+    # xdotool key XF86AudioLowerVolume
+
+control + alt + k
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    # xdotool sleep 0.100 key --clearmodifiers XF86AudioMute
+    # xdotool sleep 0.100 key --clearmodifiers XF86AudioMute
+    # xdotool key 0x1008ff11
+    # xdotool key 122
+# control + alt + @u
+    # xte 'key XF86AudioLowerVolume'
+
+# control + alt + l
+    # xdotool key XF86AudioRaiseVolume
+# control + alt + b ; d
+#     xdotool sleep 0.100 key --clearmodifiers XF86MonBrightnessDown
+
+# set directly keycode (here control + f with my keyboard)
+# c:41 + m:0x4
+
+
