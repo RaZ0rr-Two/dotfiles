@@ -9,13 +9,8 @@
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
 ;
-;
-;   Inspired from :
-;   o) https://github.com/arjvik/dots/blob/master/polybar/.config/polybar/config#L397
-;   o) https://github.com/jaagr/polybar
-;   o) https://github.com/prdanelli/dotfiles/blob/main/polybar/config.ini
-;   (For bluetooth)
-;   o) https://github.com/nickclyde/rofi-bluetooth
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
 ;
 ;   The README contains alot of information
 ;
@@ -26,7 +21,7 @@ margin-top = 0
 margin-bottom = 0
 
 include-file = ~/.config/polybar/colors.ini
-include-file = ~/.config/polybar/modules.ini
+include-file = ~/.config/polybar/modulesDWM.ini
 
 [settings]
 throttle-output = 5
@@ -47,15 +42,15 @@ compositing-overline = over
 compositing-underline = over
 compositing-border = over
 
-pseudo-transparency = true
+pseudo-transparency = false
 
 [config]
 ; Use either of the following command to list available outputs:
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = eDP-1
-monitor-fallback = eDP1
+monitor = eDP1
+monitor-fallback = eDP-1
 monitor-strict = false
 override-redirect = false
 bottom = false
@@ -66,14 +61,14 @@ underline-size = 2
 underline-color = ${colors.section_bg}
 border-color = ${colors.section_bg}
 
-offset-x = 0
-offset-y = 0
+offset-x = 15
+offset-y = 20
 radius = 5
 height = 30
 radius-top = 5
 radius-bottom = 5
 border-size = 0
-; padding = 2
+padding = 2
 
 separator =
 dim-value = 1
@@ -81,14 +76,14 @@ dim-value = 1
 enable-ipc = true
 locale =
 
-tray-position = right
+tray-position = none
 tray-detached = true
 tray-maxsize = 100
-tray-background = ${colors.dark_red}
-; tray-offset-x = 150
-; tray-offset-y = 40
-; tray-padding = 0
-; tray-scale = 1.0
+tray-background = ${colors.bg}
+tray-offset-x = 150
+tray-offset-y = 0
+tray-padding = 0
+tray-scale = 1.0
 
 click-left =
 click-middle =
@@ -99,32 +94,59 @@ double-click-right =
 cursor-click =
 cursor-scroll =
 
-font-0 = Hack Nerd Font:style=Regular:size=10
-font-1 = Hack Nerd Font:style=Regular:size=15
-font-2 = Hack Nerd Font:style=Regular:size=20
-font-3 = Hack Nerd Font:style=Regular:size=25
-font-4 = FiraCode Nerd Font Mono:size=10;1
-font-5 = FiraCode Nerd Font Mono:size=10;2
-font-6 = FiraCode Nerd Font Mono:size=10;3
-font-7 = Hack Nerd Font:style=Regular:size=25;2
-; font-2 = Font Awesome 5 Free:size=10;2
-; font-3 = Font Awesome 5 Free Solid:size=10;2
-; font-4 = Font Awesome 5 Brands:size=10;2
-; font-5 = Material Icons:size=11;4
-; font-6 = Material Icons:size=13;5
+; font-0 = "Hack Nerd Font:style=Regular:size=10;3"
+; ; https://fontawesome.com/v5/cheatsheet
+; font-1 = "FontAwesome:style=Regular:size=11;4"
+; ; For the arrow shapes - and some module icons
+; font-2 = "Iosevka Nerd Font:style=Medium:size=17;5"
+; font-3 = "FontAwesome:style=Regular:size=11;3"
+; font-4 = "Iosevka Nerd Font:style=Medium:size=18;4"
 
 ; modules-left = padding workspaces padding
 ; modules-center =
 ; modules-right = padding cpu memory swap filesystem sep brightness sep volume bluetooth sep network sep battery sep date sep sysmenu padding
 
-[bar/main]
-inherit = config
+[bar/mainDWM]
+monitor = eDP-1
+; monitor = $(xrandr --listmonitors | grep "0:" | cut -d ' ' -f6)
+;monitor = ${env:MONITOR:}
+monitor-fallback = eDP1
+monitor-strict = false
 width = 100%
-; width = 1890
+height = 36
+offset-x = 0%
+;offset-y = 1%
+radius = 0
+fixed-center = true
 
-; modules-center = fs-root fs-home memory swap cpu
+enable-ipc = true
+; background = #00
+background = ${colors.bg}
+foreground = ${colors.fg}
+
+line-size = 6
+line-color = ${colors.section_bg}
+
+padding-right = 1
+
+font-0 = Hack Nerd Font:size=9;1
+font-1 = Liberation Mono:size=9;2
+font-2 = Font Awesome 5 Free:size=10;2
+font-3 = Font Awesome 5 Free Solid:size=10;2
+font-4 = Font Awesome 5 Brands:size=10;2
+font-5 = Material Icons:size=11;4
+font-6 = Material Icons:size=13;5
+
 modules-left = dwm 
-modules-right =  keyboard ethernet wifi netspeed sep brightness volume battery date launcher google
+modules-right = fs-root fs-home sep xkeyboard sep memory cpu cpu-speed sep wlan eth sep battery date sep pulseaudio bluetooth usb sep restart lock powermenu
+
+tray-position = none
+tray-padding = 2
+
+override-redirect = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
 
 [module/dwm]
 type = internal/dwm
@@ -142,14 +164,13 @@ layout-scroll-wrap = true
 layout-scroll-reverse = true
 
 ; If enable-layout-click = true, clicking the layout symbol will switch to this layout
-; secondary-layout-symbol = %{F#608B4E} [M] %{F-}
 secondary-layout-symbol = [M]
 
 ; Tagas:
 ; Available tokens:
 ;   %name%
 
-label-floating = %{F#98c379}F%{F-}
+label-floating = F
 
 label-title = %title%
 label-title-maxlen = 10
@@ -160,17 +181,16 @@ label-title-background = ${colors.light_green}
 ; label-title-background = ${colors.background}
 
 label-layout = %symbol%
-label-layout-font = 2
-; label-layout-padding = 1
+label-layout-padding = 1
 label-layout-foreground = ${colors.light_green}
 label-layout-background = ${colors.bg}
 
 ; focused = Active tag on focused monitor
 label-focused = %name%
-label-focused-background = ${colors.light_green}
-label-focused-foreground = ${colors.darkgrey}
+label-focused-background = ${colors.string_orange}
+label-focused-foreground = ${colors.fg}
 label-focused-padding = 2
-label-focused-font = 1
+label-focused-font = 2
 
 ; unfocused = Inactive tag on any monitor
 label-unfocused = %name%
@@ -178,31 +198,27 @@ label-unfocused-background = ${colors.yellow}
 ; label-unfocused-background = ${colors2.tag-unfocused-background}
 label-unfocused-foreground = ${colors.cyan}
 ; label-unfocused-foreground = ${colors.foreground}
-; label-unfocused-padding = 2
+label-unfocused-padding = 2
 label-unfocused-font = 2
 
 ; visible = Active tag on unfocused monitor
-label-visible = %name%
-; label-visible = " %name%%{T4}|%{T-}"
-label-visible-background = ${colors.grey}
-label-visible-foreground = ${colors.cream}
-label-visible-padding = 2
-label-visible-font = 1
-; format-label-visible = <label-visible>
-; format-label-visible-padding = 2
+label-visible = |%name%|
+label-visible-background = ${colors.info_yellow}
+label-visible-foreground = ${colors.darkgrey}
+label-visible-padding = 0
+label-visible-font = 2
 
 ; urgent = Tag with urgency hint set
 label-urgent = %name%
 label-urgent-background = ${colors.red}
-label-urgent-padding = 1
-label-urgent-font = 1
+label-urgent-padding = 2
+label-urgent-font = 7
 
 ; empty = Tags with no windows assigned
 ; This can be set to an empty string to hide empty tags
-label-empty = ""
+label-empty =
 
 ; Separator in between workspaces
 ; label-separator = |
-; label-separator-font = 4 
 
 ; vim:ft=dosini

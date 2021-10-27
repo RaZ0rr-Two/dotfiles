@@ -28,3 +28,14 @@ fkill() {
 
   kill -"${1:-9}" "$pid"
 }
+
+# Alias for herbstclient if herbstluftwm is Installed
+hc() {
+  if ! [ -x "$(command -v herbstclient)" ]
+  then
+    echo 'Error: herbstluftwm is not installed.' >&2
+    exit 1
+  else
+    herbstclient "$@"
+  fi
+}

@@ -31,7 +31,8 @@ set splitright                          " Vertical splits will automatically be 
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
 set shiftwidth=2                        " number of auto-indent spaces
-set softtabstop=2                       " Insert 2 spaces for a tab
+set tabstop=2
+" set softtabstop=2                       " Insert 2 spaces for a tab
 set scrolloff=8                         " Keep 4 lines below cursor before scrolling the screen vertically
 set sidescrolloff=8                     " Keep 4 lines below cursor before scrolling the screen horizontally
 " set shiftwidth=4                        " Change the number of space characters inserted for indentation

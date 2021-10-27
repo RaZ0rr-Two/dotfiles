@@ -35,10 +35,6 @@ augroup end
 augroup illuminate_augroup
     autocmd!
     autocmd VimEnter * hi link illuminatedWord CursorLine
-augroup END
-
-augroup illuminate_augroup
-    autocmd!
     autocmd VimEnter * hi illuminatedCurWord cterm=italic gui=italic
 augroup END
 
