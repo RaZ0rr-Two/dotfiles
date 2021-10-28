@@ -21,10 +21,13 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     '.')
                         # the tag is empty
                         # TODO Add your formatting tags
+												# echo "%{F#345F0C} 0%{F-}"
+												# echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{B#345F0C}  ${i:1}  %{B-}%{A}"
                         ;;
                     ':')
                         # the tag is not empty
                         # TODO Add your formatting tags
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#608B4E} [${i:1}] %{F-}%{B-}%{A}"
                         ;;
                     '+')
                         # the tag is viewed on the specified MONITOR, but this monitor is not focused.
@@ -33,6 +36,7 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     '#')
                         # the tag is viewed on the specified MONITOR and it is focused.
                         # TODO Add your formatting tags
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#569CD6}  ${i:1}  %{F-}%{B-}%{A}"
                         ;;
                     '-')
                         # the tag is viewed on a different MONITOR, but this monitor is not focused.
@@ -45,11 +49,12 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     '!')
                         # the tag contains an urgent window
                         # TODO Add your formatting tags
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#D16969} [${i:1}] %{F-}%{B-}%{A}"
                         ;;
                 esac
 
                 # focus the monitor of the current bar before switching tags
-                echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}  ${i:1}  %{A -u -o F- B-}"
+                # echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}  ${i:1}  %{A -u -o F- B-}"
             done
 
             # reset foreground and background color to default

@@ -8,7 +8,7 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+xsetroot -solid '#005A8E3A'
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -19,7 +19,7 @@ hc keyunbind --all
 Altkey=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-hc default_frame_layout max
+hc set default_frame_layout 2
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
@@ -87,6 +87,7 @@ hc keybind $Mod-period use_index +1 --skip-visible
 hc keybind $Mod-comma  use_index -1 --skip-visible
 
 # layouting
+hc keybind $Mod-m set_layout max
 hc keybind $Mod-r remove
 hc keybind $Mod-space floating toggle
 hc keybind $Mod-f fullscreen toggle
@@ -154,7 +155,7 @@ hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
 hc set window_gap 0.5
-hc set frame_padding 0
+hc set frame_padding 1
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
@@ -168,8 +169,8 @@ hc rule floatplacement=smart
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on floatplacement=center
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 hc set tree_style '╾│ ├└╼─┐'
