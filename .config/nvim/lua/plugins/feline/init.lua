@@ -25,7 +25,7 @@ local colors = {
     green = '#a9b665',
     orange = '#e78a4e',
     violet = '#d3869b',
-    magenta = '#c14a4a',
+    magenta = '#D16D9E',
     white = '#a89984',
     fg = '#a89984',
     skyblue = '#7daea3',
@@ -417,7 +417,7 @@ components.active[3][5] = {
     provider = 'scroll_bar',
     right_sep = ' ',
     hl = {
-	fg = colors.yellow,
+	fg = colors.magenta,
 	style = 'bold'
     }
 }

@@ -50,7 +50,7 @@ zinit light-mode for \
 
 [ -f $ZDOTDIR/.zsh_functions ] && source $ZDOTDIR/.zsh_functions
 
-# [ -f $ZDOTDIR/.zsh_extra ] && source $ZDOTDIR/.zsh_extra
+[ -f $ZDOTDIR/.zsh_extra ] && source $ZDOTDIR/.zsh_extra
 
 
 zinit wait lucid light-mode for \

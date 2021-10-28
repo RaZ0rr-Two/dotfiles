@@ -23,7 +23,7 @@ hc set default_frame_layout 2
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-c close
+hc keybind $Mod-Shift-x close
 hc keybind $Mod-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-t spawn xfce4-terminal # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-w spawn wezterm # use your $TERMINAL with xterm as fallback
@@ -109,6 +109,10 @@ hc keybind $Altkey-space                                                        
                      . cycle_layout +1 vertical horizontal max vertical grid    \
                , cycle_layout +1
 
+hc add desktop
+# hc keybind $Altkey-Shift-d use desktop
+hc keybind $Altkey-d or , and . compare tags.focus.name = "desktop" . use_previous , use desktop
+
 # mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
@@ -117,25 +121,26 @@ hc mousebind $Mod-Button3 resize
 
 # focus
 hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
-hc keybind $Mod-c cycle
+hc keybind $Mod-c         cycle_all +1
+hc keybind $Mod-Shift-c   cycle_all -1
+hc keybind $Mod-Tab cycle +1
+hc keybind $Mod-Shift-Tab cycle -1
 hc keybind $Mod-i jumpto urgent
 
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222'
+hc set frame_border_active_color '#0f0fff'
 hc set frame_border_normal_color '#101010'
 # hc set frame_bg_normal_color '#565656'
 # hc set frame_bg_active_color '#345F0C'
 hc set frame_bg_normal_color '#00000000'
 hc set frame_bg_active_color '#00000000'
-hc set frame_border_width 1
-hc set always_show_frame on
+hc set frame_border_width 2
+hc set always_show_frame off
 hc set frame_bg_transparent on
-hc set frame_transparent_width 5
-hc set frame_gap 1
+hc set frame_transparent_width 1
+hc set frame_gap 6
 
 hc attr theme.title_height 15
 hc attr theme.title_font 'Dejavu Sans:pixelsize=12'  # example using Xft
@@ -146,18 +151,19 @@ hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color orange
 hc attr theme.inner_width 1
 hc attr theme.inner_color black
-hc attr theme.border_width 3
-hc attr theme.floating.border_width 4
+hc attr theme.border_width 1
+hc attr theme.floating.border_width 1
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
 hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc set window_gap 0.5
-hc set frame_padding 1
+# hc pad 0 5 5 5 5
+hc set window_gap 5
+# hc set frame_padding 1
 hc set smart_window_surroundings off
-hc set smart_frame_surroundings on
+# hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
 
 # rules
@@ -166,6 +172,7 @@ hc unrule -F
 hc rule class=Firefox tag=9 # move all xterms to tag 3
 hc rule focus=on # normally focus new clients
 hc rule floatplacement=smart
+hc rule title=nmtui floating=on floatplacement=center # float networkmanager
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
@@ -186,13 +193,15 @@ hc unlock
 #  Detect file time autostart running
 if hc silent new_attr bool my_not_first_autostart ; then
   ~/.config/herbstluftwm/scripts/startup.sh
+	# ~/.config/herbstluftwm/scripts/xfce4panelHLWM.sh
 fi
 
 # find the panel
 # panel=~/.config/herbstluftwm/panel.sh
-panel=~/.config/polybar/hlwmbar.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" "$monitor" &
-done
+# panel=~/.config/polybar/hlwmbar.sh
+# panel2=~/.config/herbstluftwm/scripts/xfce4panelHLWM.sh
+# [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+# for monitor in $(hc list_monitors | cut -d: -f1) ; do
+#     # start it on each monitor
+#     "$panel" "$monitor"  &
+# done
