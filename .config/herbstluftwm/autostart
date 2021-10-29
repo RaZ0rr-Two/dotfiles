@@ -172,6 +172,7 @@ hc unrule -F
 hc rule class=Firefox tag=9 # move all xterms to tag 3
 hc rule focus=on # normally focus new clients
 hc rule floatplacement=smart
+hc rule class=obs floating=on floatplacement=center # float networkmanager
 hc rule title=nmtui floating=on floatplacement=center # float networkmanager
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals

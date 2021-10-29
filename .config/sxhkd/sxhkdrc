@@ -6,22 +6,27 @@ control + alt + Return
 #control + alt + t
 #    wezterm
 
-alt + control + space ; {t,f,o,m}
-    {thunar,firefox,okular,mpv}
+alt + control + space ; {t,f,o,m,x}
+    {thunar,firefox,okular,mpv,xflock4}
 
 # program launcher
 control + alt + r ; {a,c,r,w,f}
-    rofi {-show combi,-theme spotlight-dark -show calc -modi "calc:rofi-bcalc" -no-show-match -no-sort,-show run -modi run -theme rounded-red-dark,-theme nord-oneline -show window -modi window, -show filebrowser}
+    rofi {-show combi,-theme spotlight-dark -show calc -modi "calc:~/.local/bin/rofi-bcalc" -no-show-match -no-sort,-show run -modi run -theme rounded-red-dark,-theme nord-oneline -show window -modi window, -show filebrowser}
 
+#rofi user scripts
 control + alt + r ; s
-    slip
+    ~/.local/bin/slip
+
+#tdrop
+control + alt s ; t
+		tdrop -ma -y 50 alacritty
 
 #jgmenu
 alt + button3
     jgmenu_run apps | jgmenu --simple
 
 # make sxhkd reload its configuration files:
-control + alt +  s ; s
+control + alt +  s ; r
     pkill -USR1 -x sxhkd
 
 # control+alt+h;w

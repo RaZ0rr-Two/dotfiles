@@ -1,6 +1,6 @@
 configuration {
 	modi: "combi,drun,window,run,ssh";
-	combi-modi: [drun,window,keys];
+	combi-modi: [drun,run,window,keys];
 	font: "Hack Nerd Font Mono 12";
 	show-icons: true;
 	terminal: "alacritty";
@@ -38,8 +38,8 @@ configuration {
 	window-thumbnail: true;
 
 	kb-accept-entry: "Return,KP_Enter";
-	kb-mode-next: "Control+Right,Tab";
-	kb-mode-previous: "Control+Left,ISO_Left_Tab";
+	kb-mode-next: "Control+Right,Control+Tab,Tab";
+	kb-mode-previous: "Control+Left,Control+ISO_Left_Tab,ISO_Left_Tab";
 	kb-toggle-case-sensitivity: "Control+i";
 	kb-cancel: "Escape,Control+c,Control+q";
 	me-accept-entry: "MousePrimary,MouseDPrimary";

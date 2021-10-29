@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+killall conky
+sleep 5
+conky -q -c /home/ACM-Lab/.conky/Mine/branch/left/conkyrc &
+conky -q -c /home/ACM-Lab/.conky/Mine/branch/right/conkyrc &
+exit
