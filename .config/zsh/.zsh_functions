@@ -39,3 +39,21 @@ hc() {
     herbstclient "$@"
   fi
 }
+
+autoload -Uz compinit
+compinit
+compdef hc=herbstclient
+#----------------------------------------------------
+opcl() {
+
+    "$@" & disown 
+    exit
+}
+
+oclbw() {
+
+    lbw & disown 
+    exit
+
+}
+

@@ -42,19 +42,6 @@ alias nv=nvim
 
 alias lbw="$HOME/Softwares/Installed/LibreWolf/LibreWolf-88.0-1.x86_64.AppImage"
 
-opcl() {
-
-    "$@" & disown 
-    exit
-}
-
-oclbw() {
-
-    lbw & disown 
-    exit
-
-}
-
 #----------------------------------------------------
 #Dotfile management
 #----------------------------------------------------

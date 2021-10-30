@@ -29,6 +29,19 @@ fkill() {
   kill -"${1:-9}" "$pid"
 }
 
+opcl() {
+
+    "$@" & disown 
+    exit
+}
+
+oclbw() {
+
+    lbw & disown 
+    exit
+
+}
+
 # Alias for herbstclient if herbstluftwm is Installed
 hc() {
   if ! [ -x "$(command -v herbstclient)" ]
