@@ -78,7 +78,7 @@ export MY_FZF_PATH=$HOME/Softwares/Source/Terminal/fzf
 
 #source /usr/share/bash-completion/completions/fzf
 #source /usr/share/doc/fzf/examples/key-bindings.bash
-[ -f $ZDOTDIR/.fzf.zsh ] && source $ZDOTDIR/.fzf.zsh
+[ -f $ZDOTDIR/.fzf_cfg.zsh ] && source $ZDOTDIR/.fzf_cfg.zsh
 #if [ -f ~/.fzf_config ]; then
 #    source ~/.fzf_config
 #fi

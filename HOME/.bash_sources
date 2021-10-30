@@ -79,8 +79,8 @@ export SINGULARITY_CACHEDIR="$HOME/.local/cache/singularity"
 
 export MY_FZF_PATH=$HOME/Softwares/Source/Terminal/fzf
 
-if [ -f ~/.fzf.bash ]; then
-    source ~/.fzf.bash
+if [ -f ~/.fzf_cfg.bash ]; then
+    source ~/.fzf_cfg.bash
 fi
 
 #----------------------------------------------------

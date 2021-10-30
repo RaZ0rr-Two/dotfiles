@@ -35,6 +35,9 @@ nnoremap <Leader><c-u> viw~<Esc>
 
 "Search and replace
 nnoremap <Leader>sr :%s/<C-r><C-w>//gc<Left><Left><Left>
+vmap <Leader>ss y/<C-R>"<CR>
+vmap <Leader>sr y:%s/<C-R>"//gc<Left><Left><Left>
+xnoremap * :<c-u>let @/=@"<cr>gvy:let [@/,@"]=[@",@/]<cr>/\V<c-r>=substitute(escape(@/,'/\'),'\n','\\n','g')<cr><cr>
 
 " TAB in general mode will move to text buffer
 nnoremap <TAB> :bnext<CR>

@@ -1,6 +1,6 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == "${MY_FZF_PATH}/bin" ]]; then
+if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
   export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
 fi
 
@@ -48,8 +48,8 @@ sffw() {
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-bind -m emacs-standard -x '"FileSearch": fzf-file-widget'
-bind -m emacs-standard '"\C-t": "FileSearch"'
+# bind -m emacs-standard -x '"FileSearch": fzf-file-widget'
+# bind -m emacs-standard '"\C-t": "FileSearch"'
 bind -m emacs-standard -x '"HomeFileSearch": sffw'
 bind -m emacs-standard '"\C-t\C-t": "HomeFileSearch"'
 # bind -m emacs-standard '"\C-t\C-t": "sffw\n"'

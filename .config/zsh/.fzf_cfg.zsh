@@ -1,12 +1,12 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == "${MY_FZF_PATH}/bin" ]]; then
+if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
   export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "${MY_FZF_PATH}/shell/completion.zsh" #2> /dev/null
+[[ $- == *i* ]] && source "${MY_FZF_PATH}/shell/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------

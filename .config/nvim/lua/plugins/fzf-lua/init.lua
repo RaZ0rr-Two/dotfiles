@@ -29,7 +29,7 @@ require'fzf-lua'.setup {
       -- scrollbar_e = 'PmenuSbar',     -- scrollbar "empty" section highlight
     },
     preview = {
-      -- default     = 'bat',           -- override the default previewer?
+      default     = 'bat',           -- override the default previewer?
                                         -- default uses the 'builtin' previewer
       border         = 'border',        -- border|noborder, applies only to
                                         -- native fzf previewers (bat/cat/git/etc)
@@ -113,6 +113,7 @@ require'fzf-lua'.setup {
     git_diff = {
       cmd             = "git diff",
       args            = "--color",
+			pager  					= "delta"
     },
     man = {
       cmd             = "man -c %s | col -bx",
@@ -129,7 +130,8 @@ require'fzf-lua'.setup {
   files = {
     -- previewer         = "bat",       -- uncomment to override previewer
     prompt            = 'Files❯ ',
-    cmd               = 'fdfind --type f --color=never --follow --hidden --exclude .git --exclude node_modules',             -- "find . -type f -printf '%P\n'",
+    -- cmd               = 'fdfind --type f --color=never --follow --hidden --exclude .git --exclude node_modules',             -- "find . -type f -printf '%P\n'",
+    cmd               = 'fdfind --type f --follow --hidden --exclude node_modules',             -- "find . -type f -printf '%P\n'",
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons

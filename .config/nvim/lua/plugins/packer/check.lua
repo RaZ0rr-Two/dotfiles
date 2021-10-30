@@ -5,12 +5,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd 'packadd packer.nvim'
 end
 
-vim.api.nvim_exec(
-  [[
-  augroup Packer
+vim.cmd([[
+  augroup packer_user_config
     autocmd!
-    autocmd BufWritePost init.vim PackerCompile
+    autocmd BufWritePost **/packer/init.lua source <afile> | PackerCompile
   augroup end
-]],
-  false
-)
+]])

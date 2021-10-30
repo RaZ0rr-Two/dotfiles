@@ -91,7 +91,7 @@ settings_table = {
         start_angle=-90,
         end_angle=180
     },
-        {
+		{
         name='memperc',
         arg='',
         max=210,
@@ -105,9 +105,9 @@ settings_table = {
         start_angle=-90,
         end_angle=180
     },
-        {
-        name='swap',
-        arg='',
+		{
+        name='cpu',
+        arg='swap',
         max=100,
         bg_colour=color_table.color0,
         bg_alpha=0.8,
