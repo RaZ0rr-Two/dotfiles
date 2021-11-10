@@ -1,11 +1,10 @@
-
 " Close buffer
 nnoremap <Leader>bq			:bn<bar>bd#<CR>
 " Close all buffer except current
 nnoremap <Leader>bQ			:%bd<bar>e#<bar>bd#<cr>
 
 " Diable higlight
-nnoremap <buffer> <localleader>h    :set hlsearch!<CR>
+nnoremap <buffer> <localleader>hl    :set hlsearch!<CR>
 
 " Toggle line wrap
 nnoremap <localleader>wt   :setlocal wrap!<cr>
@@ -67,6 +66,8 @@ xnoremap <a-j> :m '>+1<CR>gv=gv
 xnoremap <a-k> :m '<-2<CR>gv=gv
 nnoremap <a-j> :m .+1<CR>==
 nnoremap <a-k> :m .-2<CR>==
+inoremap <a-j> <Esc>:m .+1<CR>==gi
+inoremap <a-k> <Esc>:m .-2<CR>==gi
 
 " Better window navigation
 nnoremap <C-h> <C-w>h
@@ -74,7 +75,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" -----------------------------------------------------------------------------//
+" Add Empty space above and below
+" -----------------------------------------------------------------------------//
+nnoremap <Leader>o	<cmd>put! =repeat(nr2char(10), v:count1)<cr>'[            
+nnoremap <Leader>O	<cmd>put =repeat(nr2char(10), v:count1)<cr>           
 " nnoremap <Leader>o	m`o<Esc>``            
 " nnoremap <Leader>O	m`O<Esc>``           
-nnoremap <Leader>o	o<Esc>            
-nnoremap <Leader>O	O<Esc>           
+" nnoremap <Leader>o	o<Esc>            
+" nnoremap <Leader>O	O<Esc>           

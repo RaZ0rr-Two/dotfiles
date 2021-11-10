@@ -56,7 +56,12 @@ local cmp = require'cmp'
 local luasnip = require("luasnip")
 
 cmp.setup({
-    snippet = {
+
+		completion = {
+			keyword_length  = 3,
+		},
+
+		snippet = {
 			expand = function(args)
 					-- For `vsnip` user.
 					-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
@@ -68,22 +73,6 @@ cmp.setup({
 					-- vim.fn["UltiSnips#Anon"](args.body)
 			end,
     },
-    formatting = {
-			format = function(entry, vim_item)
-					vim_item.kind = string.format("%s %s", get_kind(vim_item.kind), vim_item.kind)
-					vim_item.menu = ({
-						nvim_lsp = "[LSP]",
-						luasnip = "[Luasnp]",
-						buffer = "[Buf]",
-						nvim_lua = "[Lua]",
-						path = "[Pth]",
-						calc = "[Clc]",
-						emoji = "[Emj]",
-					})[entry.source.name]
-
-					return vim_item
-			end,
-    },
     mapping = {
 			-- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 			-- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -92,7 +81,7 @@ cmp.setup({
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
       ['<C-e>'] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
@@ -101,10 +90,7 @@ cmp.setup({
 			-- 		behavior = cmp.ConfirmBehavior.Replace,
 			-- 		select = true,
 			-- }),
-			['<CR>'] = cmp.mapping({
-				i = cmp.mapping.confirm({ select = true }),
-				c = cmp.mapping.confirm({ select = false }),
-			}),
+			['<CR>'] = cmp.mapping.confirm({ select = true }),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
@@ -127,7 +113,8 @@ cmp.setup({
 				end
 			end, { "i", "s" }),
     },
-    sources = {
+
+    sources = cmp.config.sources({
 	-- this also affects the order in the completion menu
 			{ name = "nvim_lsp" },
 			-- For vsnip user.
@@ -136,26 +123,42 @@ cmp.setup({
 			{ name = 'luasnip' },
 			-- For ultisnips user.
 			-- { name = 'ultisnips' },
-			-- { name = "calc" },
+			}, {
 			{ name = "path" },
 			{ name = "buffer" },
 			-- { name = "nvim_lua" },
 			-- { name = "emoji" },
-    }
-})
+    }),
 
--- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-	sources = {
-		{ name = 'buffer' }
-	}
-})
+		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+		cmp.setup.cmdline('/', {
+			sources = {
+				{ name = 'buffer' }
+			}
+		}),
 
--- Use cmdline & path source for ':'.
-cmp.setup.cmdline(':', {
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{ name = 'cmdline' }
-	})
+		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+		cmp.setup.cmdline(':', {
+			sources = cmp.config.sources({
+				{ name = 'path' }
+			}, {
+				{ name = 'cmdline' }
+			})
+		}),
+
+		formatting = {
+			format = function(entry, vim_item)
+				vim_item.kind = string.format("%s %s", get_kind(vim_item.kind), vim_item.kind)
+				vim_item.menu = ({
+					nvim_lsp = "[LSP]",
+					luasnip = "[Luasnp]",
+					buffer = "[Buf]",
+					nvim_lua = "[Lua]",
+					path = "[Path]",
+					calc = "[Clc]",
+					emoji = "[Emj]",
+				})[entry.source.name]
+				return vim_item
+			end,
+		},
 })

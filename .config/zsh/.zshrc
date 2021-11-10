@@ -16,33 +16,31 @@ zstyle :compinstall filename '$HOME/.config/zsh/.zshrc'
 # compinit
 # End of lines added by compinstall
 
-declare -A ZINIT
-ZINIT[HOME_DIR]="$HOME/.config/zinit"
-ZINIT[BIN_DIR]="$HOME/.config/zinit/bin"
-#ZINIT[ZCOMPDUMP_PATH]="$HOME/.config/zinit"
-
-### Added by Zinit's installer
-if [[ ! -f $HOME/.config/zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.config/zinit" && command chmod g-rwX "$HOME/.config/zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.config/zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+# Clone zcomet if necessary
+if [[ ! -f ${HOME}/.config/zcomet/bin/zcomet.zsh ]]; then
+  command git clone https://github.com/agkozak/zcomet.git ${HOME}/.config/zcomet/bin
 fi
 
-source "$HOME/.config/zinit/bin/zinit.zsh"
-#autoload -Uz _zinit
-#(( ${+_comps} )) && _comps[zinit]=_zinit
+source ${HOME}/.config/zcomet/bin/zcomet.zsh
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
+zstyle ':zcomet:*' home-dir ~/.config/zcomet
+# zstyle ':zcomet:*' repos-dir ~/.config/zcomet/repos
+# zstyle ':zcomet:*' snippets-dir ~/.config/zcomet/snippets
 
-### End of Zinit's installer chunk
+# Load some plugins
+# zcomet load ohmyzsh plugins/gitfast
+zcomet load zsh-users/zsh-autosuggestions
+zcomet load zsh-users/zsh-completions
+zcomet load zsh-users/zsh-syntax-highlighting
+
+#Alias for herbstclient if herbstluftwm
+compdef hc=herbstclient
+
+# Run compinit and compile its cache
+zcomet compinit
+
+# Only main highlight by default
+# ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 [ -f $ZDOTDIR/.zsh_aliases ] && source $ZDOTDIR/.zsh_aliases
 
@@ -51,14 +49,5 @@ zinit light-mode for \
 [ -f $ZDOTDIR/.zsh_functions ] && source $ZDOTDIR/.zsh_functions
 
 [ -f $ZDOTDIR/.zsh_extra ] && source $ZDOTDIR/.zsh_extra
-
-
-zinit wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" \
-      zdharma/fast-syntax-highlighting \
-  atload"_zsh_autosuggest_start" \
-      zsh-users/zsh-autosuggestions \
-  blockf atpull'zinit creinstall -q .' \
-      zsh-users/zsh-completions
 
 eval "$(starship init zsh)"

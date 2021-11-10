@@ -22,12 +22,16 @@ snnmap('<leader>bp', ':BufferLinePick<CR>')
 --These commands will sort buffers by directory, language, or a custom criteria
 snnmap('<leader>be',':BufferLineSortByExtension<CR>')
 snnmap('<leader>bd',':BufferLineSortByDirectory<CR>')
-snnmap('<leader>bc', ":lua require('bufferline').sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR> " )
+snnmap('<leader>bc', ":lua require('bufferline').sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>" )
 
 -- require("bufferline").setup{}
 require('bufferline').setup {
   options = {
-    numbers = "id",
+		-- For ⁸·₂
+		numbers = function(opts)
+			return string.format('%s·%s', opts.raise(opts.id), opts.lower(opts.ordinal))
+		end,
+    -- numbers = "both",  --	"none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     -- number_style = "", -- buffer_id at index 1, ordinal at index 2
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -55,10 +59,10 @@ require('bufferline').setup {
 				return " " .. icon .. count
     end,
     offsets = {
-				{filetype = "fern", text = "File Explorer", text_align = "left"},
-				{filetype = "undotree", text = "Undo Timeline", text_align = "left"},
-				{filetype = "vim-plug", text = "Plugin Manager", text_align = "left"},
-				{filetype = "NvimTree", text = "File Explorer", text_align = "left"},
+				{filetype = "fern", text = "File Explorer", text_align = "center"},
+				{filetype = "undotree", text = "Undo Timeline", text_align = "center"},
+				{filetype = "vim-plug", text = "Plugin Manager", text_align = "center"},
+				{filetype = "NvimTree", text = "File Explorer", text_align = "center"},
 		},
     show_buffer_icons = true, -- disable filetype icons for buffers
     show_buffer_close_icons = true,
@@ -67,9 +71,16 @@ require('bufferline').setup {
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    separator_style = "thic",
+    separator_style = "slant", -- "slant" | "thick" | "thin" | { 'any', 'any' },
     padded_slant = 10 ,
     -- enforce_regular_tabs = false | true,
     always_show_bufferline = true,
+		
+		-- 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
+		sort_by = 'id'
+		-- function(buffer_a, buffer_b)  
+		--     -- add custom logic
+		--  		return buffer_a.modified > buffer_b.modified
+		-- end
   }
 }

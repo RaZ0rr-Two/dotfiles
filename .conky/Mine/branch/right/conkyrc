@@ -100,6 +100,6 @@ ${color1}${goto 5}${offset 25}${cpu cpu4}%
 ${color1}${goto 5}${offset 25}${voffset 60}RAM
 ${color1}${goto 5}${offset 25}${memperc}%
 ${font Roboto:size=14}${voffset -45}${color1}${goto 2}${offset 125}SWAP
-${color1}${offset 155}${cpu swap}%
+${color1}${offset 140}${cpu swap}%
 ]];
 

@@ -24,7 +24,7 @@ export FZF_CTRL_T_COMMAND='fdfind --type f --color=never --follow --hidden --exc
 export FZF_CTRL_T_OPTS="-m --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=90% ${previewFzfFile[@]}"
 
 export FZF_ALT_C_COMMAND='fdfind --type d . --color=never --hidden --follow --exclude .git --exclude node_modules '
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=90% ${previewFzfFolder[@]}"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=90% ${previewFzfFolder[@]}"
 
 export FZF_DEFAULT_COMMAND='rg --hidden --follow --no-ignore-vcs --files' 
 export FZF_DEFAULT_OPTS='-m --height=80% --layout=reverse'
@@ -60,7 +60,7 @@ bind -m emacs-standard '"\C-t\C-t": "HomeFileSearch"'
 #---------------------------------------------------------------------------------
 sdf() {
   fdfind --type d --color=never --hidden --follow --exclude .git --exclude node_modules |
-  fzf-tmux -m --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse "$@" | while read -r item; do 
+  fzf-tmux -m --preview 'tree -C {} | head -200' ${previewFzfFolder[@]} --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse "$@" | while read -r item; do 
 		printf '%q ' "$item"
   done
 	echo
@@ -82,7 +82,7 @@ bind -m emacs-standard '"\ef": "FolderSearch"'
 #---------------------------------------------------------------------------------
 sdhf() {
   fdfind . $HOME --type d --color=never --hidden --follow --exclude .git --exclude node_modules |
-  fzf-tmux -m --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse "$@" | while read -r item; do 
+  fzf-tmux -m --preview 'tree -C {} | head -200' ${previewFzfFolder[@]} --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse "$@" | while read -r item; do 
 		printf '%q ' "$item"
   done
 	echo
@@ -131,7 +131,7 @@ bind -m vi-insert -x '"\ef\ef": sdhfw'
 cda() {
   local cmd dir
   cmd="${some_command:-"command fdfind . $HOME --type d --color=never --follow --hidden --exclude .git --exclude node_modules 2> /dev/null "}"
-	dir=$(eval "($cmd)" | fzf-tmux --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'ctrl-space:toggle-preview' --height=80% --layout=reverse ) && printf 'cd %q' "$dir"
+	dir=$(eval "($cmd)" | fzf-tmux --preview 'tree -C {} | head -200' ${previewFzfFolder[@]} --bind 'ctrl-space:toggle-preview' --height=80% --layout=reverse ) && printf 'cd %q' "$dir"
 }
 # Bind cda() to Alt a
 bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`cda`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'

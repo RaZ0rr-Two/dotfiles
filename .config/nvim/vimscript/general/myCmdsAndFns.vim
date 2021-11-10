@@ -131,10 +131,6 @@ augroup quickfix
 	autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 
-function! Treetoggle()
-    NvimTreeFindFile
-endfunction
-
 "function GetAllMap2()
 "		:redir > ~/maps/vim.output | silent map | redir END
 "endfunction

@@ -5,6 +5,14 @@ alias ll='ls -lh'
 alias la='ls -al'
 alias l='ls -CF'
 
+# exa aliases
+# if command -v exa > /dev/null 2>&1 ; then
+if command -v exa &> /dev/null ; then
+	alias ls='exa --icons'
+	alias la='exa -al --icons'
+	alias ll='exa -l --icons'
+fi
+
 #source bash
 alias srcB='source ~/.bashrc'
 

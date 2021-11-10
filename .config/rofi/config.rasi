@@ -1,40 +1,40 @@
 configuration {
 	modi: "combi,drun,window,run,ssh";
-	combi-modi: [drun,run,window,keys];
+	combi-modi: [drun,run,window];
 	font: "Hack Nerd Font Mono 12";
 	show-icons: true;
 	terminal: "alacritty";
-/*	window-command: "wmctrl -i -R {window}";*/
-/*	window-match-fields: "all";*/
-/*	icon-theme: ;*/
+	/*	window-command: "wmctrl -i -R {window}";*/
+	/*	window-match-fields: "all";*/
+	/*	icon-theme: ;*/
 	display-combi: "All ";
-  	display-run: " ";
-  	display-drun: "  ";
-  	display-window: "  ";
+	display-run: " ";
+	display-drun: "  ";
+	display-window: "  ";
 	display-keys: " ";
 	display-filebrowser: " ";
-  	sidebar-mode: true;
-  	drun-display-format: "{icon} {name}";
+	sidebar-mode: true;
+	drun-display-format: "{icon} {name}";
 	drun-url-launcher: "xdg-open";
-/*	sort: false;*/
-/*	sorting-method: "normal";*/
-/*	case-sensitive: false;*/
+	/*	sort: false;*/
+	/*	sorting-method: "normal";*/
+	/*	case-sensitive: false;*/
 	cycle: true;
 	sidebar-mode: true;
 	hover-select: true;
 	matching: "fuzzy";
-/*	tokenize: true;*/
-/*	m: "-5";*/
-/*	filter: ;*/
-/*	dpi: -1;*/
-/*	threads: 0;*/
-/*	scroll-method: 0;*/
-/*	window-format: "{w}    {c}   {t}";*/
+	/*	tokenize: true;*/
+	/*	m: "-5";*/
+	/*	filter: ;*/
+	/*	dpi: -1;*/
+	/*	threads: 0;*/
+	/*	scroll-method: 0;*/
+	/*	window-format: "{w}    {c}   {t}";*/
 	click-to-exit: true;
-/*	max-history-size: 25;*/
+	/*	max-history-size: 25;*/
 	combi-hide-mode-prefix: true;
-/*	matching-negate-char: '-' /* unsupported */;*/
-/*	cache-dir: ;*/
+	/*	matching-negate-char: '-' /* unsupported */;*/
+	/*	cache-dir: ;*/
 	window-thumbnail: true;
 
 	kb-accept-entry: "Return,KP_Enter";
@@ -49,14 +49,14 @@ configuration {
 	kb-row-tab: "";
 	me-select-entry: "";
 
-  timeout {
-      action: "kb-cancel";
-      delay:  0;
-  }
-  filebrowser {
-      sorting-method:    "name";
-      directories-first: true;
-  }
+	timeout {
+		action: "kb-cancel";
+		delay:  0;
+	}
+	filebrowser {
+		sorting-method:    "name";
+		directories-first: true;
+	}
 }
 
 @theme "squared-everforest"

@@ -8,7 +8,7 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#005A8E3A'
+# xsetroot -solid '#5A8E3A'
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -23,7 +23,7 @@ hc set default_frame_layout 2
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-x close
+hc keybind $Mod-Shift-x close_or_remove
 hc keybind $Mod-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-t spawn xfce4-terminal # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-w spawn wezterm # use your $TERMINAL with xterm as fallback
@@ -81,10 +81,14 @@ for i in "${!tag_names[@]}" ; do
     fi
 done
 
+non_empty_tag=~/.config/herbstluftwm/scripts/hlwm-tagswitch
 # cycle through tags
 hc keybind $Altkey-Tab   use_previous
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma  use_index -1 --skip-visible
+hc keybind $Mod-Shift-period use_index +1 --skip-visible
+hc keybind $Mod-Shift-comma  use_index -1 --skip-visible
+# cycle through only non-empty tags
+hc keybind $Mod-period spawn $non_empty_tag next
+hc keybind $Mod-comma spawn $non_empty_tag prev
 
 # layouting
 hc keybind $Mod-m set_layout max
@@ -130,28 +134,29 @@ hc keybind $Mod-i jumpto urgent
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
+# hc set frame_border_active_color '#00000000'
 hc set frame_border_active_color '#0f0fff'
 hc set frame_border_normal_color '#101010'
 # hc set frame_bg_normal_color '#565656'
 # hc set frame_bg_active_color '#345F0C'
-hc set frame_bg_normal_color '#00000000'
-hc set frame_bg_active_color '#00000000'
+# hc set frame_bg_normal_color '#00000000'
+# hc set frame_bg_active_color '#00000000'
 hc set frame_border_width 2
-hc set always_show_frame off
+hc set always_show_frame on
 hc set frame_bg_transparent on
-hc set frame_transparent_width 1
-hc set frame_gap 6
+hc set frame_transparent_width 0
+hc set frame_gap 10
 
-hc attr theme.title_height 15
+hc attr theme.title_height 10
 hc attr theme.title_font 'Dejavu Sans:pixelsize=12'  # example using Xft
 # hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
-hc attr theme.padding_top 2  # space below the title's baseline (i.e. text depth)
+hc attr theme.padding_top 0 # space below the title's baseline (i.e. text depth)
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color orange
-hc attr theme.inner_width 1
+hc attr theme.inner_width 0
 hc attr theme.inner_color black
-hc attr theme.border_width 1
+hc attr theme.border_width 0
 hc attr theme.floating.border_width 1
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
@@ -159,11 +164,11 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-# hc pad 0 5 5 5 5
-hc set window_gap 5
-# hc set frame_padding 1
-hc set smart_window_surroundings off
-# hc set smart_frame_surroundings on
+hc pad 0 20 5 5 5
+hc set window_gap 0
+hc set frame_padding 0
+# hc set smart_window_surroundings off
+hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
 
 # rules

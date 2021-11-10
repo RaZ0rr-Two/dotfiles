@@ -11,11 +11,15 @@ alt + control + space ; {t,f,o,m,x}
 
 # program launcher
 control + alt + r ; {a,c,r,w,f}
-    rofi {-show combi,-theme spotlight-dark -show calc -modi "calc:~/.local/bin/rofi-bcalc" -no-show-match -no-sort,-show run -modi run -theme rounded-red-dark,-theme nord-oneline -show window -modi window, -show filebrowser}
+    rofi {-show combi -modi "combi#run#window#keys",-theme spotlight-dark -show calc -modi "calc:~/.local/bin/rofi-bcalc" -no-show-match -no-sort,-show run -modi run -theme rounded-red-dark,-theme nord-oneline -show window -modi window, -show filebrowser}
 
 #rofi user scripts
 control + alt + r ; s
     ~/.local/bin/slip
+
+# Peek - Screen recorder ( GIF maker )
+control + alt + s ; p
+		peek -t
 
 #tdrop
 control + alt s ; t

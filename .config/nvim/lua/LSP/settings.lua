@@ -39,11 +39,10 @@ local on_attach = function(client, bufnr)
 end
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,noselect'
+-- vim.o.completeopt = 'menu,menuone,noselect'
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 --##########################################################################################################
 -- General lang server setup -----------------------------------------
@@ -93,6 +92,15 @@ nvim_lsp.clangd.setup {
     -- on_init = function to handle changing offsetEncoding
     -- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git") or dirname
 }
+
+require("null-ls").config({
+    -- you must define at least one source for the plugin to work
+    sources = { require("null-ls").builtins.formatting.stylua }
+})
+require("lspconfig")["null-ls"].setup({
+    -- see the nvim-lspconfig documentation for available configuration options
+    on_attach = on_attach
+})
 
 -- require('LSP/ccpp')
 -- local cclscachepath = vim.fn.getenv("HOME").."/tmp/ccls-cache"

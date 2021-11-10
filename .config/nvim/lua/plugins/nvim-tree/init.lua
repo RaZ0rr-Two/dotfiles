@@ -18,7 +18,8 @@ let g:nvim_tree_window_picker_exclude = {
     \   'filetype': [
     \     'notify',
     \     'packer',
-    \     'qf'
+    \     'qf',
+		\     'undotree'
     \   ],
     \   'buftype': [
     \     'terminal'

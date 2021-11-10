@@ -6,7 +6,7 @@ end
 
 map('<leader>ff',"<cmd>lua require('fzf-lua').files()<CR>")
 map('<leader>fa',":FzfLua files cwd=~<CR>")
-map('<leader>fnv',":FzfLua files cwd=~/.config/nvim<CR>")
+map('<leader>fn',":FzfLua files cwd=~/.config/nvim<CR>")
 -- m', '<leader>fa',"<cmd>lua require('fzf-lua').files({ cwd = '~'})<CR>",{ noremap = true, silent = true })
 map('<leader>fbb',"<cmd>lua require('fzf-lua').buffers()<CR>")
 map('<leader>fbl',"<cmd>lua require('fzf-lua').blines()<CR>")

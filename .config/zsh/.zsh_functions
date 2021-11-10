@@ -40,9 +40,9 @@ hc() {
   fi
 }
 
-autoload -Uz compinit
-compinit
-compdef hc=herbstclient
+# autoload -Uz compinit
+# compinit
+# compdef hc=herbstclient
 #----------------------------------------------------
 opcl() {
 

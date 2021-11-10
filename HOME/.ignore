@@ -1,5 +1,6 @@
 .rpmdb/*
 .npm/*
+.cache/*
 **/gFolder/RaZ0rr/github/dotfiles/*
 **/.ccls-cache/*
 **/ccls-cache/*

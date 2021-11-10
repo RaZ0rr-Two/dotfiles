@@ -11,6 +11,10 @@ if has("persistent_undo")
     set undofile
 endif
 
+if !exists('g:undotree_WindowLayout')
+    let g:undotree_WindowLayout = 2
+endif
+
 " auto open diff window
 if !exists('g:undotree_DiffAutoOpen')
     let g:undotree_DiffAutoOpen = 0

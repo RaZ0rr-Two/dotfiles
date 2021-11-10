@@ -18,6 +18,8 @@ endif
 
 syntax on
 
-colorscheme base16-onedark
-"colorscheme gruvbox
+" colorscheme base16-onedark
+let g:onedark_style = 'darker'
+colorscheme onedark
+" colorscheme gruvbox
 

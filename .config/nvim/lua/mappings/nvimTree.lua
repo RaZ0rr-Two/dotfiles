@@ -1,7 +1,7 @@
 vim.cmd([[
-nnoremap <leader>tt :NvimTreeToggle<CR>
+nnoremap <leader>tt :NvimTreeFindFileToggle<CR>
 nnoremap <leader>tr :NvimTreeRefresh<CR>
-nnoremap <leader>tf :NvimTreeFindFile<CR>
+nnoremap <leader>tf :NvimTreeToggle<CR>
 ]])
 
 -- Move deleted items to Trash folder (see trash-cli)
@@ -30,9 +30,9 @@ end
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 -- default mappings
 local list = {
-	{ key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
-	{ key = {"<2-RightMouse>", "<C-]>", "<Right>"},    cb = tree_cb("cd") },
-	{ key = {"-","<Left>"},                            cb = tree_cb("dir_up") },
+	{ key = {"<CR>", "o", "<2-LeftMouse>", "l"}, cb = tree_cb("edit") },
+	{ key = {"<2-RightMouse>", "<C-]>", "h"},    cb = tree_cb("cd") },
+	{ key = {"-"},                            cb = tree_cb("dir_up") },
 	{ key = "<C-v>",                        cb = tree_cb("vsplit") },
 	{ key = "<C-x>",                        cb = tree_cb("split") },
 	{ key = "<C-t>",                        cb = tree_cb("tabnew") },
@@ -70,7 +70,7 @@ require'nvim-tree'.setup {
 		mappings = {
 			-- custom only false will merge the list with the default mappings
 			-- if true, it will only use your list to set the mappings
-			custom_only = false,
+			custom_only = true,
 			-- list of mappings to set on the tree manually
 			list = list
 		}

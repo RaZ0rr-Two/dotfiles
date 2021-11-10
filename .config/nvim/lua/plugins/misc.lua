@@ -18,7 +18,7 @@ vim.g.Illuminate_ftblacklist = {'nerdtree', 'fern', 'fzf','nvimtree'}
 vim.g.Illuminate_highlightUnderCursor = 0
 vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
-vim.api.nvim_set_keymap('n', '<leader>il', [[:exe 'IlluminationToggle!' | echo "Illuminate toggled"<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ll', [[:exe 'IlluminationToggle!' | echo "Illuminate toggled"<cr>]], {noremap = true})
 
 -- require('nvim_comment').setup(
 -- {
@@ -56,7 +56,26 @@ require'nvim-web-devicons'.setup {
 --##########################################################################################################
 -- Colorizer setup-----------------------------------------------------------------------------------------------------------------
 --###################################################################################################################
-require'colorizer'.setup()
+local colorizer_cfg = {
+	RGB      = true;         -- #RGB hex codes
+	RRGGBB   = true;         -- #RRGGBB hex codes
+	names    = true;         -- "Name" codes like Blue
+	RRGGBBAA = true;        -- #RRGGBBAA hex codes
+	-- rgb_fn   = false;        -- CSS rgb() and rgba() functions
+	-- hsl_fn   = false;        -- CSS hsl() and hsla() functions
+	-- css      = false;        -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+	-- css_fn   = false,        -- Enable all CSS *functions*: rgb_fn, hsl_fn
+	-- Available modes: foreground, background
+	mode     = 'background'; -- Set the display mode.
+}
+require'colorizer'.setup( 
+	{
+		'*' ;
+	},
+	{colorizer_cfg}
+)
+
+vim.api.nvim_set_keymap('n','<leader>clr', '<cmd>ColorizerToggle | echo "Colorizer toggled"<cr>', {noremap = true, silent = true})
 
 --##########################################################################################################
 -- Fastfold create text-object ----------------------------------------------------------------------------------------------------
