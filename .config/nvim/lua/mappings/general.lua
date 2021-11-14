@@ -27,6 +27,8 @@ local xnmap = function(key,action)
 		vim.api.nvim_set_keymap('x',key,action,{noremap = true})
 end
 
+vim.api.nvim_set_keymap('n','<leader>kl', ':s/chakkachakkachakka/chakka/e<CR>',{noremap = true, silent = true})
+
 -----------------------------------------------------------------------------//
 -- Add Empty space above and below
 -----------------------------------------------------------------------------//

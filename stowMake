@@ -1,0 +1,25 @@
+
+default:
+	@echo "dstow {options} <package_directory> [ <package names> | <ignore names> ]"
+	@echo "Options : dry, link, delete, restow, folder, ignore, fignore"
+
+link:
+	@stow -v --no-folding -t ./ -d ${STOW_DFOLDER} -S ${STOW_PACKS}
+
+delete:
+	@stow -v --no-folding -t ./ -d ${STOW_DFOLDER} -D ${STOW_PACKS}
+
+restow:
+	@stow -v --no-folding -t ./ -d ${STOW_DFOLDER} -R ${STOW_PACKS}
+
+folder:
+	@stow -v -t ./ -d ${STOW_DFOLDER} -S ${STOW_PACKS}
+	
+ignore:
+	@stow -v --no-folding -t ./ --ignore="${STOW_PACKS}" -d ${STOW_DFOLDER} -S ${STOW_IGNORE_PACK}
+	
+fignore:
+	@stow -v -t ./ -d ${STOW_DFOLDER} --ignore="${STOW_PACKS}" -S *
+	
+dry:
+	@stow -v -n --no-folding -t ./ -d ${STOW_DFOLDER} -S ${STOW_PACKS}

@@ -37,9 +37,9 @@ local vi_mode_colors = {
 	NORMAL = 'green',
 	OP = 'green',
 	INSERT = 'red',
-	VISUAL = 'skyblue',
-	LINES = 'skyblue',
-	BLOCK = 'skyblue',
+	VISUAL = 'magenta',
+	LINES = 'magenta',
+	BLOCK = 'magenta',
 	REPLACE = 'violet',
 	['V-REPLACE'] = 'violet',
 	ENTER = 'cyan',
@@ -466,7 +466,7 @@ components.active[3][7] = {
 -- fileEncode
 components.active[3][8] = {
 	provider = 'file_encoding',
-	enabled = fullBar,
+	-- enabled = fullBar,
 	hl = function()
 		local val = {}
 

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+STOW_DFOLDER=$2
+
+#STOW_IGNORE=$3
+
+STOW_PACKS=${@: 3}
+
+if [[ "$1" == "ignore" ]]
+then
+	STOW_IGNORE_PACK=$3
+	STOW_PACKS=${@: 4}
+	#echo "test"
+	#cd ${STOW_DFOLDER} && STOW_WILD_FILES=(./*) && cd -
+else
+	#echo "else"
+	#STOW_WILD_FILES=("")
+	STOW_PACKS=${@: 3}
+fi
+
+for f in $STOW_PACKS
+do
+	if [ -d "$f" ]
+	then
+		echo "$f already exists"
+	else
+		#mkdir "$f"
+		echo "$1 created"
+	fi
+	
+done
+
+STOW_IGNORE_PACK=${STOW_IGNORE_PACK} STOW_DFOLDER=$2 STOW_PACKS=${@: 3} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
+#STOW_WILD_FILES=${STOW_WILD_FILES[@]} STOW_DFOLDER=$2 STOW_PACKS=${@: 3} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
+#STOW_DFOLDER=$2 STOW_IGNORE=$3 STOW_PACKS=${@: 4} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
+#STOW_DFOLDER=$2 STOW_IGNORE=$3 STOW_PACKS=${@: 4} echo $1 $2 $3 "${@: 4}"

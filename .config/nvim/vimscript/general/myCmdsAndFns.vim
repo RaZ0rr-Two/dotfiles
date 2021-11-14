@@ -15,6 +15,12 @@ function! GetRTP()
 		:redir END
 endfunction
 
+function MyFloatTermCheck()
+     :FloatermKill Vifm
+		 :FloatermToggle Vifm
+     :execute 'FloatermNew --name=Vifm vifmrun' fnameescape(getcwd())
+endfunction
+
 "################################################################
 "Substitue command
 "################################################################

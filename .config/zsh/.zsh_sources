@@ -10,12 +10,12 @@ export EDITOR=nvim
 # man pages as neovim
 # export MANPAGER="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage +Man!"
 export MANPAGER="nvim +Man!"
-export PATH="$PATH:$HOME/neovim/bin"
+export PATH="$PATH:$HOME/Softwares/Installed/neovim/bin"
+
+#Dotfiles path
+export DOTFDIR=gFolder/RaZ0rr/dotfiles
 
 #Wine Config
-export WINEPREFIX=~/GameZ/Wine
-
-# Wine Config
 export WINEPREFIX=~/GameZ/Wine
 
 #For iw---------------------------------------------
@@ -25,7 +25,9 @@ path+='/sbin:/usr/sbin' # for iw
 # zoxide - jumper
 #----------------------------------------------------
 export _ZO_DATA_DIR="$HOME/.config/zoxide"
-eval "$(zoxide init --cmd zj zsh)"
+if [ -x "$(command -v zoxide)" ]; then 
+	eval "$(zoxide init --cmd zj zsh)"
+fi
 # zoxide import --from z $HOME/.config/z-jump/
 #----------------------------------------------------
 # z - jumper
@@ -74,7 +76,7 @@ fi
 #	fzf / Fuzzy Finder 
 #--------------------------------------------------------
 
-export MY_FZF_PATH=$HOME/Softwares/Source/Terminal/fzf
+export MY_FZF_PATH=$HOME/data_shared/Softwares/Source/fzf/gitclone
 
 #source /usr/share/bash-completion/completions/fzf
 #source /usr/share/doc/fzf/examples/key-bindings.bash
@@ -100,16 +102,25 @@ if [ -f ~/.vifm_config ]; then
     source ~/.vifm_config
 fi
 
-################## nnn Terminal File manager ########################
+#--------------------------------------------------------
+#	nnn Terminal File manager 
+#--------------------------------------------------------
 #nnn config
-if [ -f ~/.nnn_config ]; then
-    source ~/.nnn_config
+if [ -x "$(command -v nnn)" ]; then 
+	if [ -f ~/.nnn_config ]; then
+		source ~/.nnn_config
+	fi
 fi
 
-################## dotbare bare git repo manager ##################
+#--------------------------------------------------------
+#	dotbare bare git repo manager
+#--------------------------------------------------------
 #dotbare config
-if [ -f ~/.dotbare_config ]; then
-    source ~/.dotbare_config
+#if [ -x "$(command -v dotbare)" ]; then 
+if (( $+commands[dotbare] )) ; then
+	if [ -f ~/.dotbare_config ]; then
+	    source ~/.dotbare_config
+	fi
 fi
 
 

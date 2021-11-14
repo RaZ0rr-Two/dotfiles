@@ -69,11 +69,19 @@ require('packer').startup({
 		}
 
 		-- File Browser
-		use {
-			'kyazdani42/nvim-tree.lua',
-			requires = 'kyazdani42/nvim-web-devicons',
+		-- use {
+		-- 	'kyazdani42/nvim-tree.lua',
+		-- 	requires = 'kyazdani42/nvim-web-devicons',
 			-- config = function() require'nvim-tree'.setup {} end
-		}
+		-- }
+
+		use 'is0n/fm-nvim'
+		use 'voldikss/vim-floaterm'
+
+		-- use {
+		-- 	'vifm/vifm.vim',
+		-- 	requires = 'is0n/fm-nvim'
+		-- }
 		-- Fern tree viewer
 		-- use 'lambdalisue/fern.vim'
 		-- use 'lambdalisue/nerdfont.vim'

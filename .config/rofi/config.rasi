@@ -18,7 +18,7 @@ configuration {
 	drun-url-launcher: "xdg-open";
 	/*	sort: false;*/
 	/*	sorting-method: "normal";*/
-	/*	case-sensitive: false;*/
+	case-sensitive: false;
 	cycle: true;
 	sidebar-mode: true;
 	hover-select: true;
@@ -60,5 +60,3 @@ configuration {
 }
 
 @theme "squared-everforest"
-
-/* vim:ft=css

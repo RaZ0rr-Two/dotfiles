@@ -1,6 +1,25 @@
-------------------------------------------------------------------
+--##########################################################################################################
+-- vim floaterm --------------------------------------------------------------------------------------------------------------
+--###################################################################################################################
+vim.g.floaterm_opener = 'edit'
+vim.g.floaterm_autoclose = 1
+vim.api.nvim_set_keymap('n','<leader>tt', [[:execute 'FloatermNew --name=Vifm --disposable vifmrun' fnameescape(getcwd())<CR>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n','<leader>tt', [[:execute 'FloatermToggle Vifm'<CR>]], {noremap = true, silent = false})
+vim.api.nvim_set_keymap('t','<leader>tt', [[<C-\><C-n>:execute 'FloatermToggle Vifm'<CR>]], {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n','<leader>tf', [[:execute 'FloatermNew --name=Vifm vifmrun' fnameescape(getcwd())<CR>]], {noremap = true, silent = false})
+-- vim.api.nvim_set_keymap('n','<leader>tt', [[:execute 'FloatermToggle Vifm'<CR>]], {noremap = true, silent = false})
+-- vim.api.nvim_set_keymap('t','<leader>tt', [[<C-\><C-n>:execute 'FloatermToggle Vifm'<CR>]], {noremap = true, silent = false})
+-- vim.cmd[[autocmd User FloatermOpen nnoremap tt :FloatermToggle<CR>]]
+-- vim.api.nvim_set_keymap('t','<leader>tt', [[<C-\><C-n>:execute 'FloatermToggle vifm'<CR>]], {noremap = true, silent = true})
 
-vim.api.nvim_set_keymap('n','<leader>kl', ':s/chakkachakkachakka/chakka/e<CR>',{noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n','<leader>tr', ':FloatermToggle<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('t','<leader>tr', [[<C-\><C-n>:FloatermToggle<CR>]], {noremap = true, silent = true})
+
+--##########################################################################################################
+-- fm-nvim --------------------------------------------------------------------------------------------------------------
+--###################################################################################################################
+-- vim.api.nvim_set_keymap('n','<leader>tr', ':Vifm<CR>', {noremap = true})
+
 -- Move selected line / block of text in visual mode
 -- vim.api.nvim_set_keymap('x', 'K', ':move \'<-2<CR>gv-gv', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silent = true})

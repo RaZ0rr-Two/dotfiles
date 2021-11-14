@@ -66,7 +66,7 @@ if !has('win')
     set slowfs=curlftpfs
 endif
 
-set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+set statusline='  %t%= %A %10u:%-7g %15E %20d  '
 
 "Bookmarks ( set with m, goto with ')
 mark d ~/Documents/
@@ -94,43 +94,45 @@ command! reload :write | restart full
 " fileviewer * file -b %c
 fileviewer *.cc,*.hh,*.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p
 
+" fileviewer * defviewer %c
+
 fileviewer */ tree %c -L 1 --dirsfirst
 fileviewer ../ tree %c -L 1 --dirsfirst
 
 fileviewer *.pdf
-        \ vifmimg pdf %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg pdf %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer *.djvu
-        \ vifmimg djvu %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg djvu %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer *.epub
-        \ vifmimg epub %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg epub %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer <video/*>
-        \ vifmimg video %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg video %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer <image/*>
-        \ vifmimg draw %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg draw %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer <audio/*>
-        \ vifmimg audio %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg audio %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer <font/*>
-        \ vifmimg font %px %py %pw %ph %c
-        \ %pc
-        \ vifmimg clear
+		\ vifmimg font %px %py %pw %ph %c
+		\ %pc
+		\ vifmimg clear
 
 fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
 
@@ -459,6 +461,7 @@ nnoremap <c-u> <c-w>x
 nnoremap ~ :cd<cr>
 
 nmap <space><space> tj
+nmap <C-q> :qa<cr>
 nmap Q :qa<cr>
 
 nnoremap <M-c> :FZFlocate<cr>

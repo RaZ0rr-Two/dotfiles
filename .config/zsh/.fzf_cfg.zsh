@@ -12,17 +12,30 @@ fi
 # ------------
 source "${MY_FZF_PATH}/shell/key-bindings.zsh"
 
-previewFzfFile=(--preview-window 'down,50%,+{2}+3/3,~3')
-previewFzfFolder=(--preview-window 'down,50%,~1')
+FZF_FILE_COMMAND="fdfind . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_FOLDER_COMMAND="fdfind . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_RG_COMMAND='rg --hidden --follow --no-ignore-vcs --files'
 
-export FZF_CTRL_T_COMMAND='fdfind --type f --color=never --follow --hidden --exclude .git --exclude node_modules'
-export FZF_CTRL_T_OPTS="-m --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=90% ${previewFzfFile[@]}"
+FZF_FILE_PREVIEW=(--preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
+FZF_FILE_WINDOW=(--preview-window 'down,50%,+{2}+3/3,~3')
 
-export FZF_ALT_C_COMMAND='fdfind --type d . --color=never --hidden --follow --exclude .git --exclude node_modules '
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=90% ${previewFzfFolder[@]}"
+FZF_FOLDER_PREVIEW=(--preview 'tree -C {} | head -100' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
+FZF_FOLDER_WINDOW=(--preview-window 'down,50%,~1')
 
-export FZF_DEFAULT_COMMAND='rg --hidden --follow --no-ignore-vcs --files' 
-export FZF_DEFAULT_OPTS='--height=80% --layout=reverse -m'
+export FZF_DEFAULT_COMMAND=$FZF_RG_COMMAND
+export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border --info=inline'
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+--color=dark
+--color=fg:-1,bg:-1,hl:#5fff87,fg+:-1,bg+:-1,hl+:#ffaf5f
+--color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7
+'
+
+export FZF_CTRL_T_COMMAND=$FZF_FILE_COMMAND
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :100 {}' --bind=ctrl-z:ignore --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)' ${FZF_FILE_WINDOW[@]}"
+
+export FZF_ALT_C_COMMAND=$FZF_FOLDER_COMMAND
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)' ${FZF_FOLDER_WINDOW[@]}"
 
 #---------------------------------------------------------------------------------
 #Custom fzf keybindings & functions
@@ -31,10 +44,10 @@ export FZF_DEFAULT_OPTS='--height=80% --layout=reverse -m'
 # CTRL-T + CTRL-T - Paste the selected file path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
 sff() {
-  local cmd="${FZF_CTRL_F_COMMAND:-"fdfind . $HOME --type f --color=never --hidden --follow --exclude .git --exclude node_modules 2> /dev/null"}"
+  local cmd="${FZF_FILE_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
-  eval "$cmd" | fzf-tmux -m --preview 'bat --color=always --line-range :100 {}' ${previewFzfFile[@]} --height=80% --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --reverse --bind=ctrl-z:ignore "$@" | while read item; do
+  eval "$cmd" | fzf-tmux -m ${FZF_FILE_PREVIEW[@]} ${FZF_FILE_WINDOW[@]} "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?
@@ -55,10 +68,10 @@ bindkey '^T^T' sffw
 # alt-F - Paste the selected folder path(s) from into the command line
 #---------------------------------------------------------------------------------
 sdf() {
-  local cmd="${CDA_COMMAND:-"fdfind --type d --color=never --hidden --follow --exclude .git --exclude node_modules 2> /dev/null"}"
+  local cmd="${FZF_FOLDER_COMMAND}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
-  eval "$cmd" | fzf-tmux -m --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --bind=ctrl-z:ignore "$@" | while read item; do
+  eval "$cmd" | fzf-tmux -m ${FZF_FOLDER_PREVIEW[@]} ${FZF_FOLDER_WINDOW[@]} "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?
@@ -79,10 +92,10 @@ bindkey '\ef' sdfw
 # alt-F+alt-F - Paste the selected folder path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
 sdhf() {
-  local cmd="${CDA_COMMAND:-"fdfind . $HOME --type d --color=never --hidden --follow --exclude .git --exclude node_modules 2> /dev/null"}"
+  local cmd="${FZF_FOLDER_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
-  eval "$cmd" | fzf-tmux -m --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --bind=ctrl-z:ignore "$@" | while read item; do
+  eval "$cmd" | fzf-tmux -m ${FZF_FOLDER_PREVIEW[@]} ${FZF_FOLDER_WINDOW[@]} "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?
@@ -103,15 +116,15 @@ bindkey '\ef\ef' sdhfw
 # (ALT-c)+(Alt-c) - cd into the selected directory from anywhere
 #---------------------------------------------------------------------------------
 cda() {
-  local cmd="${CDF_COMMAND:-"fdfind . $HOME --type d --color=never --hidden --follow --exclude .git --exclude node_modules 2> /dev/null"}"
+  local cmd="${FZF_FOLDER_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
-  local dir="$(eval "$cmd" | fzf-tmux -m --preview 'tree -C {} | head -100' ${previewFzfFolder[@]} --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --bind=ctrl-z:ignore )"
+  local dir="$(eval "$cmd" | fzf-tmux -m ${FZF_FOLDER_PREVIEW[@]} ${FZF_FOLDER_WINDOW[@]})"
   if [[ -z "$dir" ]]; then
     zle redisplay
     return 0
   fi
   zle push-line # Clear buffer. Auto-restored on next prompt.
-  BUFFER="cd ${(q)dir}"
+  BUFFER="cd ${(q)dir}" #"
   zle accept-line
   local ret=$?
   unset dir # ensure this doesn't end up appearing in prompt expansion
@@ -127,7 +140,7 @@ bindkey '\ec\ec' cda
 cdf() {
    local file
    local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+   file=$(fzf-tmux +m ${FZF_FILE_PREVIEW[@]} ${FZF_FILE_WINDOW[@]} -q "$1") && dir=$(dirname "$file") && cd "$dir"
    local ret=$?
 }
 
@@ -137,11 +150,13 @@ bindkey -s '\ecf' 'cdf\n'
 
 # Open files from current directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
+FZF_FD_COMMAND=( "${FZF_FILE_COMMAND[@]}" " | fzf -m " "${FZF_FILE_PREVIEW[@]}" )
 onv() {
   local files
 
+  # files=(${(f)"${FZF_FD_COMMAND[@]}"})
   files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)"})
-  # files=("$(fdfind --type f --color=never --hidden --follow | fzf -m ${previewFzfFile[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)")
+  # files=("$(fdfind --type f --color=never --hidden --follow | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)")
 
   if [[ -n $files ]]
   then
@@ -153,14 +168,6 @@ fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --hidden --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
-# onv() {
-#   local IFS=$'\n' out=("$(rg --hidden --follow --no-ignore-vcs --files 2> /dev/null | fzf-tmux --preview 'bat --color=always --line-range :100 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
-#   local key=$(head -1 <<< "$out")
-#   local file=$(head -2 <<< "$out" | tail -1)
-#   if [ -n "$file" ]; then
-#     [ "$key" = ctrl-o ] && xdg-open "$file" || ${EDITOR:-vim} "$file"
-#   fi
-# }
 
 # Open files from $HOME directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
@@ -169,7 +176,7 @@ anv() {
     cd
     local files
 
-    files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${previewFzfFile[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)"})
+    files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)"})
 
     if [[ -n $files ]]
     then
@@ -178,36 +185,6 @@ anv() {
     fi
     cd $filepath
 }
-# anv() {
-#     filepath=$PWD
-#     cd
-#     IFS=$'\n' out=("$(rg --hidden --follow --no-ignore-vcs --files 2> /dev/null | fzf-tmux --preview 'bat --color=always --line-range :100 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
-#     key=$(head -1 <<< "$out")
-#     file=$(head -2 <<< "$out" | tail -1)
-#     if [ -n "$fileoutput" ]; then
-# 	[ "$key" = ctrl-o ] && xdg-open "$fileoutput" || ${EDITOR:-vim} "$fileoutput"
-#     fi
-#     cd $filepath
-# }
-# anv() {
-#     filepath=$PWD
-#     cd
-#     IFS=$'\n' out=("$(rg --hidden --follow --no-ignore-vcs --files 2> /dev/null | fzf-tmux --preview 'bat --color=always --line-range :100 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
-#     fileoutput=(${(f)"$(rg --hidden --follow --no-ignore-vcs --files 2> /dev/null | fzf-tmux -m --preview 'bat --color=always --line-range :100 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e | awk 'BEGIN {ORS=" "};{print $1}')"}) 
-#     key=$(head -1 <<< "$out")
-#     file=$(head -2 <<< "$out" | tail -1)
-#     echo $fileoutput "fileoutput"
-#     echo $out "out"
-#     if [ -n "$fileoutput" ]; then
-# 	[ "$key" = ctrl-o ] && xdg-open "$fileoutput" || ${EDITOR:-vim} -- "$fileoutput"
-#     fi
-#     cd $filepath
-# }
-
-# anv() {
-#     nv $(rg --hidden --follow --no-ignore-vcs --files 2> /dev/null | fzf-tmux --preview 'bat --color=always --line-range :100 {}' --query="$1" --exit-0 --expect=ctrl-o,ctrl-e | awk 'BEGIN { ORS=" " }; { print $1 }')
-#     # nv $out
-# }
 
 #---------------------------------------------------------------------------------
 fzfnova(){
@@ -218,8 +195,17 @@ fzfnova(){
 zle     -N    fzfnova
 bindkey '\efr' fzfnova
 
+# TMux sessoins create or select
 #---------------------------------------------------------------------------------
-testhw(){
-	echo "Hello World"
+fzts() {
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+  if [ $1 ]; then
+    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+  fi
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
-bindkey -s '^h^w' 'testhw\n'
+
+# bindkey -r '\C-g'
+# bindkey -s '\C-g' 'fzts\n'
+
+# End ---------------------------------------------------------------------------------------------

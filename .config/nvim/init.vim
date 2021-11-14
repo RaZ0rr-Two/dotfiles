@@ -36,7 +36,8 @@ lua require('plugins/fzf-lua')
 lua require('LSP/settings')
 lua require('plugins/nvim-cmp')
 lua require('plugins/treesitter')
-lua require('plugins/nvim-tree')
+lua require('plugins/fm-nvim')
+" lua require('plugins/nvim-tree')
 lua require('plugins/nvim-lightbulb')
 lua require('plugins/lsp_signature')
 lua require('plugins/lsp-utils')
@@ -54,7 +55,7 @@ lua require('plugins/misc')
 "------------------------------------------
 lua require('mappings/general')
 lua require('mappings/fzf-lua')
-lua require('mappings/nvimTree')
+" lua require('mappings/nvimTree')
 " source $HOME/.config/nvim/vimscript/mappings/general.vim
 " lua require('mappings/misc')
 " luafile $HOME/.config/nvim/mappings/nvimTree.lua
