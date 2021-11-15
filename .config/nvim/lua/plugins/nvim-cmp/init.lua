@@ -51,9 +51,8 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
--- Setup nvim-cmp.
-local cmp = require'cmp'
 local luasnip = require("luasnip")
+local cmp = require("cmp")
 
 cmp.setup({
 
@@ -89,8 +88,11 @@ cmp.setup({
 			-- ['<CR>'] = cmp.mapping.confirm({
 			-- 		behavior = cmp.ConfirmBehavior.Replace,
 			-- 		select = true,
-			-- }),
-			['<CR>'] = cmp.mapping.confirm({ select = true }),
+		-- }),
+			['<CR>'] = cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = false,
+			}),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
@@ -112,53 +114,53 @@ cmp.setup({
 					fallback()
 				end
 			end, { "i", "s" }),
-    },
+	},
 
-    sources = cmp.config.sources({
-	-- this also affects the order in the completion menu
-			{ name = "nvim_lsp" },
-			-- For vsnip user.
-			-- { name = 'vsnip' },
-			-- For luasnip user.
-			{ name = 'luasnip' },
-			-- For ultisnips user.
-			-- { name = 'ultisnips' },
-			}, {
+	sources = cmp.config.sources({
+		-- this also affects the order in the completion menu
+		{ name = "nvim_lsp" },
+		-- For vsnip user.
+		-- { name = 'vsnip' },
+		-- For luasnip user.
+		{ name = 'luasnip' },
+		-- For ultisnips user.
+		-- { name = 'ultisnips' },
+	}, {
 			{ name = "path" },
 			{ name = "buffer" },
 			-- { name = "nvim_lua" },
 			-- { name = "emoji" },
-    }),
-
-		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline('/', {
-			sources = {
-				{ name = 'buffer' }
-			}
 		}),
 
-		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(':', {
-			sources = cmp.config.sources({
-				{ name = 'path' }
-			}, {
+	-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline('/', {
+		sources = {
+			{ name = 'buffer' }
+		}
+	}),
+
+	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline(':', {
+		sources = cmp.config.sources({
+			{ name = 'path' }
+		}, {
 				{ name = 'cmdline' }
 			})
-		}),
+	}),
 
-		formatting = {
+	formatting = {
 			format = function(entry, vim_item)
-				vim_item.kind = string.format("%s %s", get_kind(vim_item.kind), vim_item.kind)
+				-- Kind icons
+				vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+				-- Source
 				vim_item.menu = ({
+					buffer = "[Buffer]",
 					nvim_lsp = "[LSP]",
-					luasnip = "[Luasnp]",
-					buffer = "[Buf]",
+					luasnip = "[LuaSnip]",
 					nvim_lua = "[Lua]",
-					path = "[Path]",
-					calc = "[Clc]",
-					emoji = "[Emj]",
+					latex_symbols = "[LaTeX]",
 				})[entry.source.name]
 				return vim_item
-			end,
-		},
+			end
+	},
 })

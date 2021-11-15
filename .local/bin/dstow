@@ -1,36 +1,20 @@
 #!/usr/bin/env bash
-
-STOW_DFOLDER=$2
-
-#STOW_IGNORE=$3
-
-STOW_PACKS=${@: 3}
-
-if [[ "$1" == "ignore" ]]
-then
-	STOW_IGNORE_PACK=$3
-	STOW_PACKS=${@: 4}
-	#echo "test"
-	#cd ${STOW_DFOLDER} && STOW_WILD_FILES=(./*) && cd -
-else
-	#echo "else"
-	#STOW_WILD_FILES=("")
-	STOW_PACKS=${@: 3}
-fi
-
-for f in $STOW_PACKS
-do
-	if [ -d "$f" ]
-	then
-		echo "$f already exists"
-	else
-		#mkdir "$f"
-		echo "$1 created"
-	fi
-	
-done
-
-STOW_IGNORE_PACK=${STOW_IGNORE_PACK} STOW_DFOLDER=$2 STOW_PACKS=${@: 3} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
-#STOW_WILD_FILES=${STOW_WILD_FILES[@]} STOW_DFOLDER=$2 STOW_PACKS=${@: 3} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
-#STOW_DFOLDER=$2 STOW_IGNORE=$3 STOW_PACKS=${@: 4} make -f $HOME/gFolder/RaZ0rr/dotfiles/stowMake $1
-#STOW_DFOLDER=$2 STOW_IGNORE=$3 STOW_PACKS=${@: 4} echo $1 $2 $3 "${@: 4}"
+case "${1}" in
+	"dry")      stow -n -v --no-folding -t ./ -d $2 -S ${@: 3};
+                exit 0 ;;
+	"link")     stow -v --no-folding -t ./ -d $2 -S ${@: 3};
+                exit 0 ;;
+    "delete")   stow -v -t ./ -d $2 -D ${@: 3};
+                exit 0 ;;
+    "restow")   stow -v --no-folding -t ./ -d $2 -R ${@: 3};
+                exit 0 ;;
+    "folder")   stow -v -t ./ -d $2 -S ${@: 3};
+                exit 0 ;;
+    "ignore")   stow -v --no-folding -t ./ -d $2 -S $3 --ignore=${@: 4};
+                exit 0 ;;
+    "fignore")  stow -v -t ./ -d $2 -S $3 --ignore=${@: 4};
+                exit 0 ;;
+    *)          echo "dstow {options} <package_directory> [ <package names> | <ignore names> ]";
+                echo "Options : dry, link, delete, restow, folder, ignore, fignore";
+                exit 1 ;;
+esac

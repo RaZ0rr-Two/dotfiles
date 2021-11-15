@@ -154,6 +154,8 @@ fileviewer {*.docx},
            \vnd.openxmlformats-officedocument.wordprocessingml.document>
          \ docx2txt.pl %f -
 
+fileviewer * bat --color=always --line-range :100 %c
+
 "----------------------------------------------------------------------------------------
 
 "               Default open for different filetypes 

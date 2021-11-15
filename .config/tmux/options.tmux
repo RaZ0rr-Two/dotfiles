@@ -3,9 +3,6 @@
 #  Options
 ###########################
 
-#Plugins directory
-set-environment -g TMUX_PLUGIN_MANAGER_PATH '$HOME/.config/tmux/plugins'
-
 # use 256 xterm for pretty colors. This enables same colors from iTerm2 within tmux.
 # This is recommended in neovim :healthcheck
 set -g default-terminal "tmux-256color"

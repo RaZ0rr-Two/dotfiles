@@ -47,7 +47,7 @@ sff() {
   local cmd="${FZF_FILE_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
-  eval "$cmd" | fzf-tmux -m ${FZF_FILE_PREVIEW[@]} ${FZF_FILE_WINDOW[@]} "$@" | while read item; do
+  eval "$cmd" | fzf-tmux -m "${FZF_FILE_PREVIEW[@]}" ${FZF_FILE_WINDOW[@]} "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?

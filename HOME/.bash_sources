@@ -10,7 +10,7 @@ export EDITOR=nvim
 # man pages as neovim
 # export MANPAGER="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage +Man!"
 export MANPAGER="nvim +Man!"
-export PATH="$PATH:$HOME/Softwares/Installed/neovim/bin"
+export PATH="$PATH:$HOME/Softwares/Installed/Neovim/bin"
 
 #Dotfiles path
 export DOTFDIR=gFolder/RaZ0rr/dotfiles

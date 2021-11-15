@@ -136,8 +136,12 @@ if [[ -r /etc/os-release ]]; then
   distro="${distro%% *}"
 fi
 
+if [[ -n /etc/debian_version ]]; then
+  distro=$(cat /etc/debian_version | awk -F'/' '{print $1}')
+fi
+
 case "$distro" in
-  pop!_os|debian|ubuntu) debian "$request" ;;
+  pop!_os|debian|ubuntu|bullseye) debian "$request" ;;
   arch) arch "$request" ;;
   void) void "$request" ;;
   fedora) fedora "$request" ;;

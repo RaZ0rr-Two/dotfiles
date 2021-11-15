@@ -48,11 +48,11 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore -
 # CTRL-T + CTRL-T - Paste the selected file path(s) into the command line
 #---------------------------------------------------------------------------------
 sff() {
-  $FZF_FILE_COMMAND $HOME |
-  fzf-tmux -m "${FZF_FILE_PREVIEW[@]}" ${FZF_FILE_WINDOW[@]} "$@" | while read -r item; do 
-		printf '%q ' "$item"
+  local cmd="${FZF_FILE_COMMAND} $HOME"
+  eval "$cmd" | fzf-tmux -m "${FZF_FILE_PREVIEW[@]}" ${FZF_FILE_WINDOW[@]} "$@" | while read -r item; do
+    printf '%q ' "$item"
   done
-	echo
+  echo
 }
 
 sffw() {
@@ -60,11 +60,11 @@ sffw() {
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-# bind -m emacs-standard -x '"FileSearch": fzf-file-widget'
-# bind -m emacs-standard '"\C-t": "FileSearch"'
-bind -m emacs-standard -x '"HomeFileSearch": sffw'
-bind -m emacs-standard '"\C-t\C-t": "HomeFileSearch"'
-# bind -m emacs-standard '"\C-t\C-t": "sffw\n"'
+bind -m emacs-standard -x '"FileSearch": fzf-file-widget'
+bind -m emacs-standard '"\C-t": "FileSearch"'
+bind -x '"HomeFileSearch":"sffw"'
+bind '"\C-t\C-t":"HomeFileSearch"'
+#bind -m emacs-standard -x '"\C-t\C-t": sffw'
 # bind -m vi-command -x '"\C-tt": sffw'
 # bind -m vi-insert -x '"\C-tt": sffw'
 
@@ -115,7 +115,7 @@ bind -m vi-insert -x '"\ef\ef": sdhfw'
 cda() {
   local cmd dir
   cmd="${FZF_FOLDER_COMMAND} $HOME"
-	dir=$(eval "($cmd)" | fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]} && printf 'cd %q' "$dir")
+	dir=$(eval "($cmd)" | fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]}) && printf 'cd %q' "$dir"
 }
 # Bind cda() to Alt a
 bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`cda`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'

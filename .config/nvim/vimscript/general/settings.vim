@@ -16,7 +16,7 @@ set smartcase
 " set nohlsearch
 " set incsearch                           "search as characters are entered
 set inccommand=nosplit
-set hidden                              " Required to keep multiple buffers open multiple buffers
+" set hidden                              " Required to keep multiple buffers open multiple buffers
 set nowrap                              " Display long lines as just one line
 " set encoding=utf-8                      " The encoding displayed
 " set pumheight=10                        " Makes popup menu smaller
@@ -50,7 +50,7 @@ set noshowmode                          " We don't need to see things like -- IN
 " set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 " set formatoptions-=cro                  " Stop newline continution of comments
-set clipboard=unnamedplus               " Copy paste between vim and everything else
+set clipboard+=unnamedplus               " Copy paste between vim and everything else
 set autochdir                           " Your working directory will always be the same as your working directory
 set laststatus=2
 
