@@ -11,23 +11,24 @@ log_out=''
 
 chosen=$(printf '%s;%s;%s;%s;%s\n' "$power_off" "$reboot" "$lock" "$suspend" \
                                    "$log_out" \
-    | rofi -config pconfig.rasi -theme-str '@import "power.rasi"' \
+    | rofi -config '~/.config/rofi/pconfig.rasi' -theme-str '@import "power.rasi"' \
            -dmenu \
            -sep ';' \
            -selected-row 2)
 
 case "$chosen" in
     "$power_off")
-        rofi-prompt --query 'Shutdown?' && poweroff
+        ~/.local/bin/rofi-prompt --query 'Shutdown?' && poweroff
         ;;
 
     "$reboot")
-        rofi-prompt --query 'Reboot?' && reboot
+        ~/.local/bin/rofi-prompt --query 'Reboot?' && reboot
         ;;
 
     "$lock")
         # TODO Add your lockscreen command.
-        xdg-screensaver lock
+        # xdg-screensaver lock
+				betterlockscreen -l blur
 				;;
 
     "$suspend")

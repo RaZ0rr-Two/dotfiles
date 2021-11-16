@@ -2,7 +2,7 @@ if pgrep '^polybar' > /dev/null; then
   exit 0
 fi
 
- Terminate already running bar instances
+# Terminate already running bar instances
 killall -q polybar
 # If all your bars have ipc enabled, you can also use 
 # polybar-msg cmd quit

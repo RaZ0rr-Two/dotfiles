@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # feh --bg-fill $HOME/Pictures/Walls/Minimal/521028.png
-feh --bg-fill $HOME/Pictures/Walls/736398-anime-wallpaper-hd.jpg
+feh --bg-fill $HOME/Pictures/Walls/1366x768/736398-anime-wallpaper-hd.jpg
 
 ~/.conky/Mine/branch/ConkybooterBranch &
+
+picom &
 
 # For getting root password dialog prompts when running application that require root priveleges
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &

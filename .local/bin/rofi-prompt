@@ -28,7 +28,7 @@ while [ $# -ne 0 ]; do
 done
 
 chosen=$(printf '%s;%s\n' "$yes" "$no" \
-    | rofi -config pconfig.rasi -theme-str '@import "prompt.rasi"' \
+    | rofi -config '~/.config/rofi/pconfig.rasi' -theme-str '@import "prompt.rasi"' \
            -p "$query" \
            -dmenu \
            -sep ';' \

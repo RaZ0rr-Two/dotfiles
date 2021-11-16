@@ -19,7 +19,8 @@ conky.config = {
 -- Window specifications #
 
 	own_window = true,
-	own_window_type = 'override',
+	own_window_class = 'conky',
+	own_window_type = 'desktop',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,skip_taskbar,skip_pager,below',
 
@@ -103,3 +104,4 @@ ${font Roboto:size=14}${voffset -45}${color1}${goto 2}${offset 125}SWAP
 ${color1}${offset 140}${cpu swap}%
 ]];
 
+-- vim:ft=lua

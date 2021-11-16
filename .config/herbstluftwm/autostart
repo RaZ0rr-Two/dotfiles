@@ -91,12 +91,14 @@ hc keybind $Mod-period spawn $non_empty_tag next
 hc keybind $Mod-comma spawn $non_empty_tag prev
 
 # layouting
-hc keybind $Mod-m set_layout max
+hc keybind $Mod-s set_layout max
 hc keybind $Mod-r remove
-hc keybind $Mod-space floating toggle
+hc keybind $Mod-Shift-space floating toggle
 hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-Shift-space set_attr clients.focus.floating toggle
-hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
+hc keybind $Mod-space set_attr clients.focus.floating toggle
+hc keybind $Mod-m set_attr clients.focus.minimized true
+maximizeWindow=~/.config/herbstluftwm/scripts/maximize.sh
+hc keybind $Mod-Shift-m spawn maximizeWindow
 # restore all minimized windows of the focused tag
 hc keybind $Mod-Ctrl-m foreach CLIENT clients. \
      sprintf MINATT "%c.minimized" CLIENT \
@@ -104,6 +106,13 @@ hc keybind $Mod-Ctrl-m foreach CLIENT clients. \
        , compare MINATT "=" "true" \
        , substitute FOCUS "tags.focus.name" compare TAGATT "=" FOCUS \
        , set_attr MINATT false
+# minimize all minimized windows of the focused tag
+hc keybind $Mod-$Altkey-m foreach CLIENT clients. \
+     sprintf MINATT "%c.minimized" CLIENT \
+     sprintf TAGATT "%c.tag" CLIENT and \
+       , compare MINATT "=" "false" \
+       , substitute FOCUS "tags.focus.name" compare TAGATT "=" FOCUS \
+       , set_attr MINATT true
 hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
@@ -142,7 +151,7 @@ hc set frame_border_normal_color '#101010'
 # hc set frame_bg_normal_color '#00000000'
 # hc set frame_bg_active_color '#00000000'
 hc set frame_border_width 2
-hc set always_show_frame on
+hc set always_show_frame off
 hc set frame_bg_transparent on
 hc set frame_transparent_width 0
 hc set frame_gap 10
@@ -164,7 +173,7 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc pad 0 20 5 5 5
+hc pad 0 30 5 5 5
 hc set window_gap 0
 hc set frame_padding 0
 # hc set smart_window_surroundings off
@@ -180,6 +189,7 @@ hc rule floatplacement=smart
 hc rule class=obs floating=on floatplacement=center # float OBS Studio
 hc rule title=alsamixer floating=on floatplacement=smart # float Alsamixer volume control
 hc rule title=nmtui floating=on floatplacement=center # float nmtui network manager
+hc rule class=Pavucontrol floating=on floatplacement=center # float pulse audio volume control
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
@@ -197,7 +207,8 @@ hc unlock
 # or simply:
 # hc detect_monitors
 
-#  Detect file time autostart running
+#  Detect first time autostart running
+herbstclient silent new_attr bool my_not_first_autostart
 if hc silent new_attr bool my_not_first_autostart ; then
   ~/.config/herbstluftwm/scripts/startup.sh
 	# ~/.config/herbstluftwm/scripts/xfce4panelHLWM.sh

@@ -7,12 +7,13 @@ conky.config = {
 	double_buffer = true,
 	no_buffers = false,
 	use_xft = true,
-	font = 'Zekton:size=12',
+	font = 'FiraCode Nerd Font Mono:size=12',
+	-- font = 'Zekton:size=12',
 	-- override_utf8_locale = true,
 	text_buffer_size = 2048,
-	own_window_class = 'Conky',
+	own_window_class = 'conky',
 	own_window = true,
-	own_window_type = 'override',
+	own_window_type = 'desktop',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager',
 	alignment = 'bottom_left',
@@ -62,3 +63,5 @@ ${goto 95}${voffset 20}${font Zekton:style=Bold:size=9}
 ${goto 80}${font Zekton:style=Bold:size=9}
 ${voffset -200}${image ~/.conky/Mine/branch/left/lsd.png -p 10,20 -s 315x452}
 ]];
+
+-- vim:ft=lua
