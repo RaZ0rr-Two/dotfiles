@@ -79,7 +79,7 @@ __sdf__() {
   return $ret
 }
 
---sdfw__() {
+__sdfw__() {
   LBUFFER="${LBUFFER}$(__sdf__)"
   local ret=$?
   zle reset-prompt
