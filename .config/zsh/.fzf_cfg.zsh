@@ -43,7 +43,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore -
 
 # CTRL-T + CTRL-T - Paste the selected file path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
-sff() {
+__sff__() {
   local cmd="${FZF_FILE_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
@@ -55,19 +55,19 @@ sff() {
   return $ret
 }
 
-sffw() {
-  LBUFFER="${LBUFFER}$(sff)"
+__sffw__() {
+  LBUFFER="${LBUFFER}$(__sff__)"
   local ret=$?
   zle reset-prompt
   return $ret
 }
 
-zle     -N   sffw
-bindkey '^T^T' sffw
+zle     -N   __sffw__
+bindkey '^T^T' __sffw__
 
 # alt-F - Paste the selected folder path(s) from into the command line
 #---------------------------------------------------------------------------------
-sdf() {
+__sdf__() {
   local cmd="${FZF_FOLDER_COMMAND}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
@@ -79,19 +79,19 @@ sdf() {
   return $ret
 }
 
-sdfw() {
-  LBUFFER="${LBUFFER}$(sdf)"
+--sdfw__() {
+  LBUFFER="${LBUFFER}$(__sdf__)"
   local ret=$?
   zle reset-prompt
   return $ret
 }
 
-zle     -N   sdfw
-bindkey '\ef' sdfw
+zle     -N   __sdfw__
+bindkey '\ef' __sdfw__
 
 # alt-F+alt-F - Paste the selected folder path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
-sdhf() {
+__sdhf__() {
   local cmd="${FZF_FOLDER_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local item
@@ -103,19 +103,19 @@ sdhf() {
   return $ret
 }
 
-sdhfw() {
-  LBUFFER="${LBUFFER}$(sdhf)"
+__sdhfw__() {
+  LBUFFER="${LBUFFER}$(__sdhf__)"
   local ret=$?
   zle reset-prompt
   return $ret
 }
 
-zle     -N   sdhfw
-bindkey '\ef\ef' sdhfw
+zle     -N   __sdhfw__
+bindkey '\ef\ef' __sdhfw__
 
 # (ALT-c)+(Alt-c) - cd into the selected directory from anywhere
 #---------------------------------------------------------------------------------
-cda() {
+__cda__() {
   local cmd="${FZF_FOLDER_COMMAND} $HOME"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local dir="$(eval "$cmd" | fzf-tmux -m ${FZF_FOLDER_PREVIEW[@]} ${FZF_FOLDER_WINDOW[@]})"
@@ -132,12 +132,12 @@ cda() {
   return $ret
 }
 
-zle     -N    cda
-bindkey '\ec\ec' cda
+zle     -N    __cda__
+bindkey '\ec\ec' __cda__
 
 # (ALT-c)+(f) cdf - cd into the directory of the selected file
 #---------------------------------------------------------------------------------
-cdf() {
+__cdf__() {
    local file
    local dir
    file=$(fzf-tmux +m ${FZF_FILE_PREVIEW[@]} ${FZF_FILE_WINDOW[@]} -q "$1") && dir=$(dirname "$file") && cd "$dir"
@@ -146,7 +146,7 @@ cdf() {
 
 # zle     -N    cdf
 # bindkey '\ecf' cdf
-bindkey -s '\ecf' 'cdf\n'
+bindkey -s '\ecf' '__cdf__\n'
 
 # Open files from current directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------

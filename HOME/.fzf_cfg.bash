@@ -47,7 +47,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore -
 
 # CTRL-T + CTRL-T - Paste the selected file path(s) into the command line
 #---------------------------------------------------------------------------------
-sff() {
+__sff__() {
   local cmd="${FZF_FILE_COMMAND} $HOME"
   eval "$cmd" | fzf-tmux -m "${FZF_FILE_PREVIEW[@]}" ${FZF_FILE_WINDOW[@]} "$@" | while read -r item; do
     printf '%q ' "$item"
@@ -55,22 +55,22 @@ sff() {
   echo
 }
 
-sffw() {
-  local selected="$(sff)"
+__sffw__() {
+  local selected="$(__sff__)"
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-bind -m emacs-standard -x '"FileSearch": fzf-file-widget'
-bind -m emacs-standard '"\C-t": "FileSearch"'
-bind -x '"HomeFileSearch":"sffw"'
-bind '"\C-t\C-t":"HomeFileSearch"'
+bind -m emacs-standard -x '"__FileSearch__": fzf-file-widget'
+bind -m emacs-standard '"\C-t": "__FileSearch__"'
+bind -x '"__HomeFileSearch__":"__sffw__"'
+bind '"\C-t\C-t":"__HomeFileSearch__"'
 #bind -m emacs-standard -x '"\C-t\C-t": sffw'
 # bind -m vi-command -x '"\C-tt": sffw'
 # bind -m vi-insert -x '"\C-tt": sffw'
 
 # alt-F - Paste the selected folder path(s) into the command line
 #---------------------------------------------------------------------------------
-sdf() {
+__sdf__() {
   $FZF_FOLDER_COMMAND |
   fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]} "$@" | while read -r item; do 
 		printf '%q ' "$item"
@@ -78,13 +78,13 @@ sdf() {
 	echo
 }
 
-sdfw() {
-  local selected="$(sdf)"
+__sdfw__() {
+  local selected="$(__sdf__)"
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-bind -m emacs-standard -x '"FolderSearch": sdfw'
-bind -m emacs-standard '"\ef": "FolderSearch"'
+bind -m emacs-standard -x '"__FolderSearch__": __sdfw__'
+bind -m emacs-standard '"\ef": "__FolderSearch__"'
 # bind '"\ef": "sdfw\n"'
 # bind '"\ef":"\C-b\C-k \C-u`sdfw`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 # bind -m vi-command -x '"\ef": sdfw'
@@ -92,7 +92,7 @@ bind -m emacs-standard '"\ef": "FolderSearch"'
 
 # alt-F+alt-F - Paste the selected folder path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
-sdhf() {
+__sdhf__() {
   $FZF_FOLDER_COMMAND $HOME |
   fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]} "$@" | while read -r item; do 
 		printf '%q ' "$item"
@@ -100,32 +100,32 @@ sdhf() {
 	echo
 }
 
-sdhfw() {
-  local selected="$(sdhf)"
+__sdhfw__() {
+  local selected="$(__sdhf__)"
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
 
-bind -m emacs-standard -x '"\ef\ef": sdhfw'
-bind -m vi-command -x '"\ef\ef": sdhfw'
-bind -m vi-insert -x '"\ef\ef": sdhfw'
+bind -m emacs-standard -x '"\ef\ef": __sdhfw__'
+bind -m vi-command -x '"\ef\ef": __sdhfw__'
+bind -m vi-insert -x '"\ef\ef": __sdhfw__'
 
 # (ALT-c)+(Alt-c) - cd into the selected directory from anywhere
 #---------------------------------------------------------------------------------
-cda() {
+__cda__() {
   local cmd dir
   cmd="${FZF_FOLDER_COMMAND} $HOME"
 	dir=$(eval "($cmd)" | fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]}) && printf 'cd %q' "$dir"
 }
 # Bind cda() to Alt a
-bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`cda`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`__cda__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 bind -m vi-command '"\ec\ec": "\C-z\ec\ec\C-z"'
 bind -m vi-insert '"\ec\ec": "\C-z\ec\ec\C-z"'
 #bind -x '"\ev":cda'
 
 # cdf - cd into the directory of the selected file
 #---------------------------------------------------------------------------------
-cdf() {
+__cdf__() {
    local file
    local dir
 	 local cmd
@@ -136,7 +136,7 @@ cdf() {
 # bind -m emacs-standard -x '"\eg": cdf'
 # bind -m vi-command -x '"\eg": cdf'
 # bind -m vi-insert -x '"\eg": cdf'
-bind '"\ecf": "cdf\n"'
+bind '"\ecf": "__cdf__\n"'
 
 # Open files from current directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
