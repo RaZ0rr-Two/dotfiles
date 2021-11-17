@@ -1,3 +1,13 @@
+nvmk() { mkdir -p "$(dirname "$1")" && ${EDITOR:-vim} "$1" ; }
+
+packF(){
+	apt list --installed 2> /dev/null | grep -i "$1" | fzf-tmux
+}
+
+packN(){
+	apt list --installed 2> /dev/null | grep -i "$1" | wc -l
+}
+
 packls(){
 	apt list --installed 2> /dev/null | grep -i "$1"
 }
