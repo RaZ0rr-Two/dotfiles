@@ -18,6 +18,9 @@ bind -Troot C-b switchc -Tprefix
 bind -Tprefix C-x if -F '#{s/empty//:key-table}' 'set key-table empty' 'set -u key-table'
 bind -Tempty F12 switchc -Tprefix
 
+# bind C-j new-window -n "session-switcher" "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+bind C-j display-popup -E "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+
 if -b '[ "$SSH_CLIENT" ]' '         \
     set -g status-position top;     \
     set -g prefix M-b;              \

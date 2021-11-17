@@ -1,5 +1,6 @@
 .rpmdb/*
 .npm/*
+**/timeshift/*
 .cache/*
 **/gFolder/RaZ0rr/github/dotfiles/*
 **/.ccls-cache/*
