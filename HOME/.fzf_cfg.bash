@@ -4,9 +4,9 @@ if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
   export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
 fi
 
-if [ -f ~/.fzf_test.bash ]; then
-    source ~/.fzf_test.bash
-fi
+# if [ -f ~/.fzf_test.bash ]; then
+#     source ~/.fzf_test.bash
+# fi
 
 # Auto-completion
 #---------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ source "${MY_FZF_PATH}/shell/key-bindings.bash"
 
 FZF_FILE_COMMAND="fdfind . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_FOLDER_COMMAND="fdfind . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
-FZF_RG_COMMAND='rg --hidden --follow --no-ignore-vcs --files'
+FZF_RG_COMMAND='rg --hidden --follow --glob "!.git" --files'
 
 FZF_FILE_PREVIEW=(--preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
 FZF_FILE_WINDOW=(--preview-window 'down,50%,+{2}+3/3,~3')
@@ -27,7 +27,7 @@ FZF_FOLDER_PREVIEW=(--preview 'tree -C {} | head -100' --bind 'ctrl-z:ignore' --
 FZF_FOLDER_WINDOW=(--preview-window 'down,50%,~1')
 
 export FZF_DEFAULT_COMMAND=$FZF_RG_COMMAND
-export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border --info=inline'
+export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border'
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=dark
@@ -141,14 +141,14 @@ bind '"\ecf": "__cdf__\n"'
 # Open files from current directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
 onv() {
-  IFS=$'\n' files=($(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse))
+  IFS=$'\n' files=($(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
 # Open files from $HOME directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
 anv() {
-  IFS=$'\n' files=($(fdfind . $HOME --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview' --height=80% --layout=reverse))
+  IFS=$'\n' files=($(fdfind . $HOME --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 

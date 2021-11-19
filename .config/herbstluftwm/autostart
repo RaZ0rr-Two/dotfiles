@@ -23,10 +23,11 @@ hc set default_frame_layout 2
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
+hc keybind $Mod-r remove
 hc keybind $Mod-Shift-x close_or_remove
 hc keybind $Mod-Return spawn "${TERMINAL:-alacritty}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-t spawn xfce4-terminal # use your $TERMINAL with xterm as fallback
-hc keybind $Mod-w spawn wezterm # use your $TERMINAL with xterm as fallback
+# hc keybind $Mod-w spawn wezterm # use your $TERMINAL with xterm as fallback
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -81,18 +82,27 @@ for i in "${!tag_names[@]}" ; do
     fi
 done
 
-non_empty_tag=~/.config/herbstluftwm/scripts/hlwm-tagswitch
 # cycle through tags
-hc keybind $Altkey-Tab   use_previous
-hc keybind $Mod-Shift-period use_index +1 --skip-visible
-hc keybind $Mod-Shift-comma  use_index -1 --skip-visible
+hc keybind $Mod-Tab  use_previous
+# hc keybind $Mod-period use_index +1 --skip-visible
+# hc keybind $Mod-comma  use_index -1 --skip-visible
+hc keybind $Mod-Shift-a  use_index +1 --skip-visible
+hc keybind $Mod-Shift-s  use_index -1 --skip-visible
 # cycle through only non-empty tags
-hc keybind $Mod-period spawn $non_empty_tag next
-hc keybind $Mod-comma spawn $non_empty_tag prev
+non_empty_tag=~/.config/herbstluftwm/scripts/hlwm-tagswitch
+hc keybind $Mod-a spawn $non_empty_tag next
+hc keybind $Mod-s spawn $non_empty_tag prev
+
+# focus
+hc keybind $Mod-c   cycle_monitor
+hc keybind $Mod-e         cycle_all +1
+hc keybind $Mod-Shift-e   cycle_all -1
+hc keybind $Mod-w cycle +1
+hc keybind $Mod-Shift-w cycle -1
+hc keybind $Mod-i jumpto urgent
 
 # layouting
-hc keybind $Mod-s set_layout max
-hc keybind $Mod-r remove
+hc keybind $Mod-d set_layout max
 hc keybind $Mod-Shift-space floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-space set_attr clients.focus.floating toggle
@@ -117,28 +127,20 @@ hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Altkey-space                                                           \
+hc keybind $Mod-$Altkey-space                                                           \
             or , and . compare tags.focus.curframe_wcount = 2                   \
                      . cycle_layout +1 vertical horizontal max vertical grid    \
                , cycle_layout +1
 
-hc add desktop
+# hc add desktop
 # hc keybind $Altkey-Shift-d use desktop
-hc keybind $Altkey-d or , and . compare tags.focus.name = "desktop" . use_previous , use desktop
+# hc keybind $Altkey-d or , and . compare tags.focus.name = "desktop" . use_previous , use desktop
 
 # mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 zoom
 hc mousebind $Mod-Button3 resize
-
-# focus
-hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-c         cycle_all +1
-hc keybind $Mod-Shift-c   cycle_all -1
-hc keybind $Mod-Tab cycle +1
-hc keybind $Mod-Shift-Tab cycle -1
-hc keybind $Mod-i jumpto urgent
 
 # theme
 hc attr theme.tiling.reset 1
@@ -208,7 +210,7 @@ hc unlock
 # hc detect_monitors
 
 #  Detect first time autostart running
-herbstclient silent new_attr bool my_not_first_autostart
+# herbstclient silent new_attr bool my_not_first_autostart
 if hc silent new_attr bool my_not_first_autostart ; then
   ~/.config/herbstluftwm/scripts/startup.sh
 	# ~/.config/herbstluftwm/scripts/xfce4panelHLWM.sh

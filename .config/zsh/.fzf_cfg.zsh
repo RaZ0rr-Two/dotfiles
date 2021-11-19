@@ -14,7 +14,7 @@ source "${MY_FZF_PATH}/shell/key-bindings.zsh"
 
 FZF_FILE_COMMAND="fdfind . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_FOLDER_COMMAND="fdfind . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
-FZF_RG_COMMAND='rg --hidden --follow --no-ignore-vcs --files'
+FZF_RG_COMMAND='rg --hidden --follow --glob "!.git" --files'
 
 FZF_FILE_PREVIEW=(--preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
 FZF_FILE_WINDOW=(--preview-window 'down,50%,+{2}+3/3,~3')
@@ -23,7 +23,7 @@ FZF_FOLDER_PREVIEW=(--preview 'tree -C {} | head -100' --bind 'ctrl-z:ignore' --
 FZF_FOLDER_WINDOW=(--preview-window 'down,50%,~1')
 
 export FZF_DEFAULT_COMMAND=$FZF_RG_COMMAND
-export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border --info=inline'
+export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border'
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=dark
@@ -155,7 +155,7 @@ onv() {
   local files
 
   # files=(${(f)"${FZF_FD_COMMAND[@]}"})
-  files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)"})
+  files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
   # files=("$(fdfind --type f --color=never --hidden --follow | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)")
 
   if [[ -n $files ]]
@@ -176,7 +176,7 @@ anv() {
     cd
     local files
 
-    files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)"})
+    files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
 
     if [[ -n $files ]]
     then
