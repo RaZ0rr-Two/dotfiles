@@ -48,6 +48,17 @@ require'fzf-lua'.setup {
                                         -- applies only when scrollbar = 'float'
       scrollchars    = {'█', '' },      -- scrollbar chars ({ <full>, <empty> }
                                         -- applies only when scrollbar = 'border'
+      winopts = {                       -- builtin previewer window options
+        number            = true,
+        relativenumber    = false,
+        cursorline        = true,
+        cursorlineopt     = 'both',
+        cursorcolumn      = false,
+        signcolumn        = 'no',
+        list              = false,
+        foldenable        = false,
+        foldmethod        = 'manual',
+      },
     },
     on_create = function()
       -- called once upon creation of the fzf main window
@@ -137,6 +148,7 @@ require'fzf-lua'.setup {
     git_diff = {
       cmd             = "git diff",
       args            = "--color",
+      -- pager        = "delta",      -- if you have `delta` installed
     },
     man = {
       cmd             = "man -c %s | col -bx",
@@ -151,15 +163,27 @@ require'fzf-lua'.setup {
   },
   -- provider setup
   files = {
-    -- previewer         = "cat",       -- uncomment to override previewer
+    -- previewer      = "cat",          -- uncomment to override previewer
     prompt            = 'Files❯ ',
-    cmd               = 'fdfind --type f --color=never --follow --hidden --exclude .git --exclude node_modules',             -- "find . -type f -printf '%P\n'",
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    -- executed command priority is 'cmd' (if exists)
+    -- otherwise auto-detect prioritizes `fd` over `find`
+    -- default options are controlled by 'fd|find_opts'
+    -- NOTE: 'find -printf' requires GNU find
+    -- cmd            = "find . -type f -printf '%P\n'",
+    find_opts         = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
+    fd_opts           = [[--color never --type f --hidden --follow ]] ..
+            [[--exclude .git --exclude node_modules --exclude '*.pyc']],
     actions = {
-      -- set bind to 'false' to disable
-      ["default"]     = actions.file_edit,
+      -- set bind to 'false' to disable an action
+      -- default action opens a single selection
+      -- or sends multiple selection to quickfix
+      -- replace the default aciton with the below
+      -- to open all files whether single or multiple
+      -- ["default"]     = actions.file_edit,
+      ["default"]       = actions.file_edit_or_qf,
       ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
       ["ctrl-t"]      = actions.file_tabedit,
@@ -224,12 +248,15 @@ require'fzf-lua'.setup {
   grep = {
     prompt            = 'Rg❯ ',
     input_prompt      = 'Grep For❯ ',
-    -- cmd               = "rg --vimgrep",
-    rg_opts           = "--hidden --column --line-number --no-heading " ..
-                        "--color=always --smart-case -g '!{.git,node_modules}/*'",
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    -- executed command priority is 'cmd' (if exists)
+    -- otherwise auto-detect prioritizes `rg` over `grep`
+    -- default options are controlled by 'rg|grep_opts'
+    -- cmd            = "rg --vimgrep",
+    rg_opts           = "--column --line-number --no-heading --color=always --smart-case --max-columns=512",
+    grep_opts         = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp",
     -- 'true' enables file and git icons in 'live_grep'
     -- degrades performance in large datasets, YMMV
     experimental      = false,
@@ -299,7 +326,7 @@ require'fzf-lua'.setup {
     prompt            = '❯ ',
     -- cwd               = vim.loop.cwd(),
     cwd_only          = false,      -- LSP/diagnostics for cwd only?
-    async_or_timeout  = 3000,       -- timeout(ms) or false for blocking calls
+    async_or_timeout  = true,       -- timeout(ms) or false for blocking calls
     file_icons        = true,
     git_icons         = false,
     lsp_icons         = true,

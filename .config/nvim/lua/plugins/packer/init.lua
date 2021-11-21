@@ -87,6 +87,12 @@ require('packer').startup({
 		-- use 'lambdalisue/nerdfont.vim'
 		-- use 'lambdalisue/fern-renderer-nerdfont.vim'
 
+		use {
+				'goolord/alpha-nvim',
+				-- config = function ()
+				-- 		require'alpha'.setup(require'alpha.themes.dashboard'.opts)
+				-- end
+		}
 		-- Startify
 		-- use 'mhinz/vim-startify'
 

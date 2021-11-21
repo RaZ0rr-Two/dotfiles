@@ -6,22 +6,16 @@ let g:mapleader = ","
 let g:maplocalleader=" "
 
 syntax enable                           " Enables syntax highlighing
-syntax on				" Override highlight with defaults
 filetype indent plugin on
-" set autoindent                          " Good auto indent
 set breakindent
 set termguicolors
 set ignorecase
 set smartcase
-" set nohlsearch
-" set incsearch                           "search as characters are entered
+set nohlsearch
 set inccommand=nosplit
-" set hidden                              " Required to keep multiple buffers open multiple buffers
 set nowrap                              " Display long lines as just one line
-" set encoding=utf-8                      " The encoding displayed
 " set pumheight=10                        " Makes popup menu smaller
 " set fileencoding=utf-8                  " The encoding written to file
-" set ruler              			            " Show the cursor position all the time
 set cmdheight=2                         " More space for displaying messages
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set mouse=a                             " Enable your mouse
@@ -33,17 +27,11 @@ set conceallevel=0                      " So that I can see `` in markdown files
 set shiftwidth=2                        " number of auto-indent spaces
 set tabstop=2
 " set softtabstop=2                       " Insert 2 spaces for a tab
-" set scrolloff=8                         " Keep 4 lines below cursor before scrolling the screen vertically
-" set sidescrolloff=8                     " Keep 4 lines below cursor before scrolling the screen horizontally
-" set shiftwidth=4                        " Change the number of space characters inserted for indentation
-" set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-"set expandtab                           " Converts tabs to spaces
-" set backspace=indent,eol,start
+set scrolloff=4                         " Keep 4 lines below cursor before scrolling the screen vertically
+set sidescrolloff=4                     " Keep 4 lines below cursor before scrolling the screen horizontally
 set smartindent                         " Makes indenting smart
 set number                              " Line numbers
-" set signcolumn=yes			" Default auto
 set cursorline                          " Enable highlighting of the current line
-" set background=dark                     " tell vim what the background color looks like
 set showmatch                      			" Highlight matching brace
 set showtabline=2                       " Always show tabs
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
@@ -71,6 +59,7 @@ set viewdir=$HOME/.config/nvim/.mkViewDir
 " auto source when writing to init.vim 
 " alternatively you can run :source $MYVIMRC
 au! BufWritePost $MYVIMRC nested source $MYVIMRC | echom "Reloaded init.vim"
+au! BufWritePost **/settings.vim nested source $MYVIMRC | echom "Reloaded init.vim"
 
 " You can't stop me
 " cmap w!! w !sudo tee %

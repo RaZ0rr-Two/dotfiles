@@ -10,7 +10,7 @@ set vicmd=$EDITOR
 
 "open with preview window and dotfiles hidden
 view!
-normal! zm
+normal! za
 
 " tabname tab1
 
@@ -21,6 +21,8 @@ tabnew
 cd ~ ~
 
 tabnext 1
+
+set viewcolumns=-50%{name},50%{ext}
 
 set vifminfo=dhistory,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks
@@ -154,7 +156,7 @@ fileviewer {*.docx},
            \vnd.openxmlformats-officedocument.wordprocessingml.document>
          \ docx2txt.pl %f -
 
-fileviewer * bat --color=always --line-range :100 %c
+fileviewer *.[a-z] bat --color=always --line-range :100 %c
 
 "----------------------------------------------------------------------------------------
 
@@ -414,17 +416,27 @@ if has('win')
     " Yank path to current file to Windows clipboard with forward slashes
     nnoremap yf :!echo %"c:gs!\!/! %i | clip<cr>
 elseif executable('xclip')
-    " Yank current directory path into the clipboard
-    nnoremap yd :!echo %d | xclip %i<cr>
-    " Yank current file path into the clipboard
-    nnoremap yf :!echo %c:p | xclip %i<cr>
+		" yank current directory path into the clipboard
+		nnoremap yd :!echo -n %d | xclip -selection clipboard %i<cr>:echo expand('%"d') "is yanked to clipboard"<cr>
+		" yank current file path into the clipboard
+		nnoremap yf :!echo -n %c:p | xclip -selection clipboard %i<cr>:echo expand('%"c:p') "is yanked to clipboard"<cr>
+		" yank current filename without path into the clipboard
+		nnoremap yn :!echo -n %c | xclip -selection clipboard %i<cr>:echo expand('%"c') "is yanked to clipboard"<cr>
+		" yank root of current file's name into the clipboard
+		nnoremap yr :!echo -n %c:r | xclip -selection clipboard %i<cr>:echo expand('%"c:r') "is yanked to clipboard"<cr>
 elseif executable('xsel')
-    " Yank current directory path into primary and selection clipboards
-    nnoremap yd :!echo -n %d | xsel --input --primary %i &&
-                \ echo -n %d | xsel --clipboard --input %i<cr>
-    " Yank current file path into into primary and selection clipboards
-    nnoremap yf :!echo -n %c:p | xsel --input --primary %i &&
-                \ echo -n %c:p | xsel --clipboard --input %i<cr>
+		" yank current directory path into primary and selection clipboards
+		nnoremap yd :!echo -n %d | xsel --input --primary %i &&
+								\ echo -n %d | xsel --clipboard --input %i<cr>:echo expand('%"d') "is yanked to clipboard"<cr>
+		" yank current file path into primary and selection clipboards
+		nnoremap yf :!echo -n %c:p | xsel --input --primary %i &&
+								\ echo -n %c:p | xsel --clipboard --input %i<cr>:echo expand('%"c:p') "is yanked to clipboard"<cr>
+		" yank current filename without path into primary and selection clipboards
+		nnoremap yn :!echo -n %c | xsel --input --primary %i &&
+								\ echo -n %c | xsel --clipboard --input %i<cr>:echo expand('%"c') "is yanked to clipboard"<cr>
+		" yank root of current file's name into primary and selection clipboards
+		nnoremap yr :!echo -n %c:r | xsel --input --primary %i &&
+								\ echo -n %c:r | xsel --clipboard --input %i<cr>:echo expand('%"c:r') "is yanked to clipboard"<cr>
 endif
 
 " Mappings for faster renaming
@@ -433,7 +445,7 @@ nnoremap cc cw<c-u>
 nnoremap A cw
 
 " Open console in current directory
-nnoremap ,t :!xterm &<cr>
+nnoremap ,t :!${TERMINAL:-alacritty} &<cr>
 
 " Open editor to edit vifmrc and apply settings after returning to vifm
 " nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>

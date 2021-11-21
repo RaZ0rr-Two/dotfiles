@@ -7,7 +7,9 @@ conky.config = {
 	double_buffer = true,
 	no_buffers = false,
 	use_xft = true,
-	font = 'FiraCode Nerd Font Mono:size=12',
+	font = 'Roboto:size=12',
+	font1 = 'FiraCode Nerd Font Mono:size=12',
+	font2 = 'Hack Nerd Font Mono:size=12',
 	-- font = 'Zekton:size=12',
 	-- override_utf8_locale = true,
 	text_buffer_size = 2048,
@@ -35,7 +37,7 @@ conky.config = {
 	-- own_window_argb_visual = true,
 	own_window_colour = '000000',
 -- time template
-   template7 = '%H:%M',
+	template7 = '%H:%M',
 
 
 
@@ -43,25 +45,23 @@ conky.config = {
 
 conky.text = [[
 ${voffset 50}
-${goto 185}${voffset -8}${color0}${font Zekton:style=bold:size=12}${execi 3600 echo $USER}
-${goto 70}${voffset -30}${color}${font}Temperature
+${goto 220}${voffset -20}${color0}${font}${execi 3600 echo $USER}
+${goto 70}${voffset -20}${color}${font}Temperature
 ${goto 110}${color}${font}${acpitemp}% 
-${goto 10}${voffset 55}${font Zekton:style=bold:size=30}\
-${time $template7}${font}
-${goto 200}${voffset 0}${font Zekton:style=Bold:size=9}Battery
-${alignc -85}${font Zekton:style=Bold:size=9}\
+${goto 10}${voffset 55}${font}\
+${offset 10}${font Roboto:size=40}${time $template7}
+${voffset -80}${goto 220}${voffset 40}${font}Battery
+${alignc -100}${font}\
 ${if_existing /sys/class/power_supply/BAT0}${battery_percent BAT0}%\
 ${else}\
 ${if_existing /sys/class/power_supply/BAT1}${battery_percent BAT1}%${else}%${endif}${endif}
-${voffset 35}${color0}${goto 50}ROOT
-${goto 50}${font Zekton:style=Bold:size=9}${fs_used /}
-${goto 50}${font Zekton:style=Bold:size=9}${fs_free /}
-${voffset -60}${color0}${goto 148}HOME
-${goto 148}${font Zekton:style=Bold:size=9}${fs_used /home}
-${goto 148}${font Zekton:style=Bold:size=9}${fs_free /home}
-${goto 95}${voffset 20}${font Zekton:style=Bold:size=9}
-${goto 80}${font Zekton:style=Bold:size=9}
-${voffset -200}${image ~/.conky/Mine/branch/left/lsd.png -p 10,20 -s 315x452}
+${voffset 35}${color0}${goto 60}ROOT
+${goto 50}${font}${fs_used /}
+${goto 50}${font}${fs_free /}
+${voffset -60}${color0}${goto 170}HOME
+${goto 160}${font}${fs_used /home}
+${goto 160}${font}${fs_free /home}
+${voffset 80}${image ~/.conky/Mine/branch/left/lsd.png -p 10,0 -s 355x502}
 ]];
 
 -- vim:ft=lua

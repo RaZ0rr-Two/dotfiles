@@ -88,7 +88,7 @@ bnnmap('<localleader>hl' , ':set hlsearch!<CR>')
 -----------------------------------------------------------------------------//
 -- Toggle line wrap
 -----------------------------------------------------------------------------//
-nnmap('<localleader>wt' , ':setlocal wrap!<cr>')
+nnmap('<localleader>wr' , ':setlocal wrap!<cr>')
 
 -----------------------------------------------------------------------------//
 -- Remap for dealing with word wrap
@@ -161,12 +161,12 @@ vnmap('>' , '>gv')
 -----------------------------------------------------------------------------//
 -- Move selected line / block of text in visual mode
 -----------------------------------------------------------------------------//
-vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true})
-vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true})
-vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true})
-vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true})
-vim.api.nvim_set_keymap('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true})
-vim.api.nvim_set_keymap('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true})
+vim.api.nvim_set_keymap('n', '<S-Down>', ':m .+1<CR>==', { noremap = true})
+vim.api.nvim_set_keymap('n', '<S-Up>', ':m .-2<CR>==', { noremap = true})
+vim.api.nvim_set_keymap('i', '<S-Down>', '<Esc>:m .+1<CR>==gi', { noremap = true})
+vim.api.nvim_set_keymap('i', '<S-Up>', '<Esc>:m .-2<CR>==gi', { noremap = true})
+vim.api.nvim_set_keymap('v', '<S-Down>', ':m \'>+1<CR>gv=gv', { noremap = true})
+vim.api.nvim_set_keymap('v', '<S-Up>', ':m \'<-2<CR>gv=gv', { noremap = true})
 
 -----------------------------------------------------------------------------//
 -- Better window navigation
@@ -175,3 +175,8 @@ nnmap('<C-h>' , '<C-w>h')
 nnmap('<C-j>' , '<C-w>j')
 nnmap('<C-k>' , '<C-w>k')
 nnmap('<C-l>' , '<C-w>l')
+
+nnmap('<C-Left>' , '<C-w>h')
+nnmap('<C-Down>' , '<C-w>j')
+nnmap('<C-Up>' , '<C-w>k')
+nnmap('<C-Right>' , '<C-w>l')

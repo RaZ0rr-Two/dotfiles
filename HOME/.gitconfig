@@ -9,7 +9,10 @@
 [core]
     editor = $EDITOR
     pager = delta
-
+[merge]
+  ff = only
+[pull]
+  ff = only
 [pager]
     diff = delta
     log = delta

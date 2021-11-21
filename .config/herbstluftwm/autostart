@@ -86,12 +86,12 @@ done
 hc keybind $Mod-Tab  use_previous
 # hc keybind $Mod-period use_index +1 --skip-visible
 # hc keybind $Mod-comma  use_index -1 --skip-visible
-hc keybind $Mod-Shift-a  use_index +1 --skip-visible
-hc keybind $Mod-Shift-s  use_index -1 --skip-visible
+hc keybind $Mod-Shift-s  use_index +1 --skip-visible
+hc keybind $Mod-Shift-a  use_index -1 --skip-visible
 # cycle through only non-empty tags
 non_empty_tag=~/.config/herbstluftwm/scripts/hlwm-tagswitch
-hc keybind $Mod-a spawn $non_empty_tag next
-hc keybind $Mod-s spawn $non_empty_tag prev
+hc keybind $Mod-s spawn $non_empty_tag next
+hc keybind $Mod-a spawn $non_empty_tag prev
 
 # focus
 hc keybind $Mod-c   cycle_monitor
@@ -108,7 +108,7 @@ hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-space set_attr clients.focus.floating toggle
 hc keybind $Mod-m set_attr clients.focus.minimized true
 maximizeWindow=~/.config/herbstluftwm/scripts/maximize.sh
-hc keybind $Mod-Shift-m spawn maximizeWindow
+hc keybind $Mod-Shift-m spawn $maximizeWindow
 # restore all minimized windows of the focused tag
 hc keybind $Mod-Ctrl-m foreach CLIENT clients. \
      sprintf MINATT "%c.minimized" CLIENT \
@@ -188,7 +188,8 @@ hc unrule -F
 hc rule class=Firefox tag=9 # move all xterms to tag 3
 hc rule focus=on # normally focus new clients
 hc rule floatplacement=smart
-hc rule class=obs floating=on floatplacement=center # float OBS Studio
+hc rule class=obs floating=on floatplacement=center # float obs studio
+hc rule class=Steam tag=8 floating=on floatplacement=center # float Steam
 hc rule title=alsamixer floating=on floatplacement=smart # float Alsamixer volume control
 hc rule title=nmtui floating=on floatplacement=center # float nmtui network manager
 hc rule class=Pavucontrol floating=on floatplacement=center # float pulse audio volume control
@@ -211,9 +212,11 @@ hc unlock
 
 #  Detect first time autostart running
 # herbstclient silent new_attr bool my_not_first_autostart
+spawnClients=~/.config/herbstluftwm/scripts/spawnClients
 if hc silent new_attr bool my_not_first_autostart ; then
   ~/.config/herbstluftwm/scripts/startup.sh
 	# ~/.config/herbstluftwm/scripts/xfce4panelHLWM.sh
+	hc spawn $spawnClients
 fi
 
 # find the panel

@@ -7,13 +7,13 @@ vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 
 --vim.api.nvim_command('let g:indent_blankline_filetype_exclude = {"help", "startify","fernTree"}')
-vim.g.indent_blankline_filetype_exclude = {[[help]],"startify", "fern", 'undotree','packer', 'markdown','NvimTree'}
+vim.g.indent_blankline_filetype_exclude = {[[help]],"startify", "fern", 'undotree','packer', 'markdown','NvimTree','alpha'}
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 -- vim.g.indent_blankline_char = '│'
 vim.g.indent_blankline_char_list = {'│', '¦', '┆', '┊'}
 -- vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_char_highlight = 'LineNr'
-vim.opt.list = true
+-- vim.opt.list = true
 -- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 require("indent_blankline").setup {

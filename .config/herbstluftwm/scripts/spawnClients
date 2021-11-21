@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Requirement: bash >= 4.0 (because of the usage of $BASHPID)
+
+spawn_with_rules() {(
+    # this rule also requires, that the client
+    # sets the _NET_WM_PID property
+    herbstclient rule once pid=$BASHPID maxage=10 "${RULES[@]}"
+    exec "$@"
+    ) &
+}
+
+# spawn two terminals (alacritty and default terminal in two windows) in tag 1
+RULES=( tag=1 )
+spawn_with_rules herbstclient set_layout max
+RULES=( floating=off focus=on index='.' tag=1 )
+spawn_with_rules alacritty
+RULES=( tag=1 )
+spawn_with_rules herbstclient split right
+RULES=( floating=off focus=off index='1/' tag=1 )
+spawn_with_rules xfce4-terminal
+
+# spawn an vifm in tag 2
+RULES=( floating=off focus=off tag=2 )
+spawn_with_rules alacritty -t Vifm -e ~/.local/bin/vifmrun
+
+# spawn an bottom (htop alternative) in tag 3
+RULES=( floating=off focus=off tag=3 )
+spawn_with_rules alacritty -t Bottom -e btm
