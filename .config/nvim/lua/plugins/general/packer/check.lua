@@ -19,8 +19,8 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost **/packer/init.lua echom "Run PackerSync" | PackerSync
-		" autocmd BufWritePost **/packer/init.lua lua packerSyncandSource()
-    " autocmd BufWritePost **/packer/init.lua echo "Updating plugins" | :PackerSync | source $MYVIMRC
+    autocmd BufWritePost **/pluginsList.lua echom "Run PackerSync" | PackerSync
+		" autocmd BufWritePost **/pluginsList.lua lua packerSyncandSource()
+    " autocmd BufWritePost **/pluginsList.lua echo "Updating plugins" | :PackerSync | source $MYVIMRC
   augroup end
 ]])

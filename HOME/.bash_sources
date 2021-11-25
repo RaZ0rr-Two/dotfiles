@@ -5,12 +5,15 @@ export PATH=$PATH:$HOME/.local/bin
 #----------------------------------------------------
 # NEOVIM
 #----------------------------------------------------
-export EDITOR=nvim
 # export EDITOR="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage"
 # man pages as neovim
 # export MANPAGER="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage +Man!"
-export MANPAGER="nvim +Man!"
 export PATH="$PATH:$HOME/Softwares/Installed/Neovim/bin"
+if [[ -x "$(command -v nvim)" ]]; then
+    export EDITOR='nvim'
+		export MANPAGER="nvim -c Man!"
+    export MANWIDTH=999
+fi
 
 #Dotfiles path
 export DOTFDIR=gFolder/RaZ0rr/dotfiles

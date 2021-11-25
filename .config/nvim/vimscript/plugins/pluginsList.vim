@@ -1,8 +1,8 @@
+"########################################################
+"		Bootstrap
+"########################################################
 
-"########################################################
-"		Not required. 
-"	Alternative in init.vim or .vimrc
-"########################################################
+source $HOME/.config/nvim/vimscript/plugins/vim-plug/check.vim
 
 " " auto-install vim-plug
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))

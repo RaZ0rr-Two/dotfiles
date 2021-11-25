@@ -71,7 +71,8 @@ bind '"\C-t\C-t":"__HomeFileSearch__"'
 # alt-F - Paste the selected folder path(s) into the command line
 #---------------------------------------------------------------------------------
 __sdf__() {
-  $FZF_FOLDER_COMMAND |
+	local cmd="${FZF_FOLDER_COMMAND}"
+  eval "$cmd" |
   fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]} "$@" | while read -r item; do 
 		printf '%q ' "$item"
   done
@@ -93,7 +94,8 @@ bind -m emacs-standard '"\ef": "__FolderSearch__"'
 # alt-F+alt-F - Paste the selected folder path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
 __sdhf__() {
-  $FZF_FOLDER_COMMAND $HOME |
+	local cmd="${FZF_FOLDER_COMMAND} $HOME"
+  eval "$cmd" |
   fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]} "$@" | while read -r item; do 
 		printf '%q ' "$item"
   done

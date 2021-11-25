@@ -6,7 +6,7 @@ if [ -n "$INSIDE_VIFM" ]; then
     unset INSIDE_VIFM
 fi
 
-vifmcd()
+vfcd()
 {
     local dst="$(command vifm --choose-dir - "$@")"
     if [ -z "$dst" ]; then
