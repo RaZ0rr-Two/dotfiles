@@ -1,6 +1,6 @@
 configuration {
-	modi: "combi,drun,window,run,ssh";
-	combi-modi: [drun,run,window];
+	modi: "combi,drun,window,run,ssh" ;
+	combi-modi: "drun,run";
 	font: "Hack Nerd Font Mono 12";
 	show-icons: true;
 	terminal: "alacritty";

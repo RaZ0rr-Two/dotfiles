@@ -27,7 +27,8 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     ':')
                         # the tag is not empty
                         # TODO Add your formatting tags
-												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#608B4E} [${i:1}] %{F-}%{B-}%{A}"
+												# echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#608B4E} [${i:1}] %{F-}%{B-}%{A}"
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#608B4E} [${i:1}] %{F-}%{A}"
                         ;;
                     '+')
                         # the tag is viewed on the specified MONITOR, but this monitor is not focused.
@@ -36,7 +37,8 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     '#')
                         # the tag is viewed on the specified MONITOR and it is focused.
                         # TODO Add your formatting tags
-												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#569CD6}  ${i:1}  %{F-}%{B-}%{A}"
+												# echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#569CD6}  ${i:1}  %{F-}%{B-}%{A}"
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#569CD6} (${i:1}) %{F-}%{A}"
                         ;;
                     '-')
                         # the tag is viewed on a different MONITOR, but this monitor is not focused.
@@ -49,7 +51,8 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     '!')
                         # the tag contains an urgent window
                         # TODO Add your formatting tags
-												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#D16969} [${i:1}] %{F-}%{B-}%{A}"
+												# echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#000000}%{B#D16969} [${i:1}] %{F-}%{B-}%{A}"
+												echo "%{A1:herbstclient focus_monitor ${MON_IDX}; herbstclient use ${i:1}:}%{F#D16969} [${i:1}] %{F-}%{A}"
                         ;;
                 esac
 

@@ -1,5 +1,6 @@
 .rpmdb/*
 .npm/*
+.steam/*
 **/timeshift/*
 .cache/*
 **/gFolder/RaZ0rr/github/dotfiles/*

@@ -45,6 +45,40 @@ prompt {
     text-color: @accent-color;
 }
 
+mode-switcher {
+    /** we use spacing between children to draw a 'border' */
+    spacing: 4px;
+    border: 0px;
+    /* border-radius: 0px 4px 4px 0px; */
+    /** border and background are same color, widget will have desired bg color.*/
+    /** this way the spacing shows as a border */
+    border-color: @bg0;
+    /* background-color: @accent-color; */
+    /** inherit font setting from parent */
+    /* font: inherit; */
+}
+
+/**
+ * Buttons in mode switcher.
+ */
+button {
+    /* background-color: @accent-color; */
+    background-color: @bg1;
+    border-color: darkgrey;
+    /** inherit font setting from parent */
+    /* font: inherit; */
+    cursor: pointer;
+}
+
+/**
+ * Selected buttons in mode switcher.
+ */
+button selected {
+    background-color: @accent-color;
+    text-color:       black;
+}
+
+
 textbox {
     padding:            8px;
     background-color:   @bg1;
