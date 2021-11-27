@@ -45,7 +45,7 @@ prompt {
 }
 
 entry {
-    placeholder:        "Search";
+    placeholder:        "Run";
     placeholder-color:  @fg3;
 }
 

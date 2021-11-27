@@ -9,7 +9,8 @@ autocmd BufEnter vifmrc setlocal commentstring=\"\ %s
 
 autocmd Syntax tmux,py,bash,zsh,sh,r,h,hh,hpp,cc,c,cpp,vim,nvim,lua,xml,html,xhtml,perl normal zR
 
-au BufRead,BufNewFile *.rasi		setfiletype css
+" au BufRead,BufNewFile *.rasi		setfiletype css
+" au BufRead,BufNewFile *.rasi		set commentstring=//\ %s
 
 " Highlight on yank
 augroup YankHighlight

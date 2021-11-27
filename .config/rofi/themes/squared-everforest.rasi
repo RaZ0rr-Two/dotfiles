@@ -48,8 +48,8 @@ prompt {
 mode-switcher {
     /** we use spacing between children to draw a 'border' */
     spacing: 4px;
-    border: 0px;
-    /* border-radius: 0px 4px 4px 0px; */
+    border: 1px;
+    border-radius: 0px 4px 4px 0px;
     /** border and background are same color, widget will have desired bg color.*/
     /** this way the spacing shows as a border */
     border-color: @bg0;
@@ -65,6 +65,8 @@ button {
     /* background-color: @accent-color; */
     background-color: @bg1;
     border-color: darkgrey;
+		padding : 0em 1em ;
+		margin : 0.5em ;
     /** inherit font setting from parent */
     /* font: inherit; */
     cursor: pointer;
