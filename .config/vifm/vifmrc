@@ -23,7 +23,7 @@ cd ~ ~
 
 tabnext 1
 
-set viewcolumns=-50%{name},50%{ext}
+" set viewcolumns=-50%{name},50%{ext}
 
 set vifminfo=dhistory,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks

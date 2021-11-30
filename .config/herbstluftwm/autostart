@@ -148,7 +148,8 @@ hc attr theme.floating.reset 1
 hc set frame_border_active_color '#222222cc'
 hc set frame_border_normal_color '#101010cc'
 hc set frame_bg_normal_color '#565656aa'
-hc set frame_bg_active_color '#345F0Caa'
+hc set frame_bg_active_color '#00000000'
+# hc set frame_bg_active_color '#345F0C'
 hc set frame_border_width 1
 hc set always_show_frame off
 hc set frame_bg_transparent on
@@ -181,11 +182,11 @@ done
 hc attr theme.active.outer_width 1
 hc attr theme.background_color '#141414'
 
-hc pad 0 30 5 5 5
+# hc pad 0 30 5 5 5
 hc set window_gap 0
 hc set frame_padding 0
-# hc set smart_window_surroundings off
-hc set smart_frame_surroundings on
+hc set smart_window_surroundings on
+hc set smart_frame_surroundings off
 hc set mouse_recenter_gap 0
 
 # rules
