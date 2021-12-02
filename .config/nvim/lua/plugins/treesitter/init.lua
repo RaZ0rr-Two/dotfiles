@@ -21,10 +21,11 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'grn',
+      init_selection = '<cr>',
+      -- init_selection = 'gnn',
+      node_incremental = '<tab>',
       scope_incremental = 'grc',
-      node_decremental = 'grm',
+      node_decremental = '<s-tab>',
     },
   },
   indent = {

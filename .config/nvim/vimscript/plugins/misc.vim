@@ -10,10 +10,13 @@ xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 " vim illuminate --------------------------------------------------------------------------------------------------------------
 "###################################################################################################################
 
-" augroup illuminate_augroup
-"     autocmd!
-"     autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-" augroup END
+" Don't highlight word under cursor (default: 1)
+let g:Illuminate_highlightUnderCursor = 0
+
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
 
 augroup illuminate_augroup
     autocmd!

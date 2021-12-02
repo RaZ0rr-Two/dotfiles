@@ -63,6 +63,7 @@ lua require('plugins/general/alpha')
 " source $HOME/.config/nvim/vimscript/plugins/startify.vim
 lua require('plugins/general/indent-blankline')
 lua require('plugins/general/nvim-bufferline')
+" lua require('plugins/general/vim-matchup')
 "source $HOME/.config/nvim/vimscript/plugins/fernTree.vim
 "source $HOME/.config/nvim/vimscript/plugins/airline.vim
 "source $HOME/.config/nvim/vimscript/keys/nerdTree.vim

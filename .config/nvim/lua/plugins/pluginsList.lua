@@ -128,6 +128,9 @@ require('packer').startup({
 		-- 	branch = 'main',
 		-- }
 
+		-- highlight, navigate, and operate on sets of matching text
+		use 'andymass/vim-matchup'
+
 		-- Add indentation guides even on blank lines -----
 		use 'lukas-reineke/indent-blankline.nvim'
 

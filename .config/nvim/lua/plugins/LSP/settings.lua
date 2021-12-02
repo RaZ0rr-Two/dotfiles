@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next { float = true }<CR>', opts)
     buf_set_keymap('n', '<space>lq', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    require 'illuminate'.on_attach(client)
+    -- require 'illuminate'.on_attach(client)
 end
 
 -- Set completeopt to have a better completion experience
