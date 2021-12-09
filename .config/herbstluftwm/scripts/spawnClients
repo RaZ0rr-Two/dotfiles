@@ -18,7 +18,8 @@ spawn_with_rules alacritty
 RULES=( tag=1 )
 spawn_with_rules herbstclient split right
 RULES=( floating=off focus=off index='1/' tag=1 )
-spawn_with_rules xfce4-terminal
+spawn_with_rules alacritty
+# spawn_with_rules xfce4-terminal
 
 # spawn an vifm in tag 2
 RULES=( floating=off focus=off tag=2 )

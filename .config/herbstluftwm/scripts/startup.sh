@@ -8,7 +8,8 @@ feh --bg-fill $HOME/Pictures/Walls/1366x768/736398-anime-wallpaper-hd.jpg
 picom &
 
 # For getting root password dialog prompts when running application that require root priveleges
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+/usr/bin/lxqt-policykit-agent &
 
 ~/.config/polybar/hlwmbar.sh &
 

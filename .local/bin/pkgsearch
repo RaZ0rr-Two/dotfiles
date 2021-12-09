@@ -136,7 +136,7 @@ if [[ -r /etc/os-release ]]; then
   distro="${distro%% *}"
 fi
 
-if [[ -n /etc/debian_version ]]; then
+if [[ -r /etc/debian_version ]]; then
   distro=$(cat /etc/debian_version | awk -F'/' '{print $1}')
 fi
 

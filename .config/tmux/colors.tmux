@@ -22,14 +22,15 @@ set -g pane-active-border-style fg=green,bg=black
 # Set different background color for active window
 # setw -g window-status-current-style fg=black,bold,bg=cyan
 #set -g window-status-current-bg magenta
+# colorgrey=#5b5f71
 set -g window-status-separator      ""
-set -g window-status-format         "#[bg=colour0,nobold]#[fg=colour10]  #I#[fg=#5b5f71]#[bg=colour10] #[fg=#5b5f71]#[bg=colour10]#W #[bg=#5b5f71]#[fg=colour10]#{@left_separator}"
-set -g window-status-current-format "#[fg=colour30]#[bg=colour235]  #I#[fg=colour235]#[bg=colour30] #[fg=colour235]#[bg=colour30]#W#[fg=colour30]#[bg=colour0]#{@left_separator}"
+set -g window-status-format         "#[bg=colour235,nobold]#[fg=colour10]  #I#[fg=colour235]#[bg=colour10] #[fg=colour235]#[bg=colour10]#W #[bg=colour235]#[fg=colour10]#{@left_separator}"
+set -g window-status-current-format "#[fg=colour30]#[bg=colour235]  #I#[fg=colour235]#[bg=colour30] #[fg=colour235]#[bg=colour30]#W#[fg=colour30]#[bg=colour235]#{@left_separator}"
 
 # statusbar
 set -g status-position bottom
-set -g status-style 'fg=colour235 bg=colour0'
-# set -g status-style 'fg=#5b5f71 bg=colour235'
+# set -g status-style 'fg=colour235 bg=colour0'
+set -g status-style 'fg=#5b5f71 bg=colour235'
 # set -g status-style 'bg=colour18 fg=colour137 dim'
 
 # Status basr sections

@@ -23,7 +23,7 @@ cd ~ ~
 
 tabnext 1
 
-" set viewcolumns=-50%{name},50%{ext}
+set viewcolumns=-50%{name},50%{ext}
 
 set vifminfo=dhistory,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks
@@ -484,20 +484,20 @@ nnoremap <M-f> :FZFfind<cr>
 nnoremap <M-t> :FZFecho<cr>
 
 command! FZFfind : set noquickview
-                \| let $FZF_PICK = term('fdfind --type f --hidden --follow | fzf-tmux 2>/dev/tty')
+                \| let $FZF_PICK = term('fd --type f --hidden --follow | fzf-tmux 2>/dev/tty')
                 \| if $FZF_PICK != ''
                 \|     execute 'goto' fnameescape($FZF_PICK)
                 \| endif
 
 command! FZFecho : set noquickview
-                \| let $FZF_PICK = term('fdfind --type f --hidden --follow | fzf-tmux 2>/dev/tty')
+                \| let $FZF_PICK = term('fd --type f --hidden --follow | fzf-tmux 2>/dev/tty')
                 \| if $FZF_PICK != ''
                 \|     echo ($FZF_PICK)
                 \| endif
 
 " variation that automatically enters directories
 command! FZFlocate : set noquickview
-                  \| let $FZF_PICK = term('fdfind --type d --hidden --follow | fzf-tmux 2>/dev/tty')
+                  \| let $FZF_PICK = term('fd --type d --hidden --follow | fzf-tmux 2>/dev/tty')
                   \| if $FZF_PICK != ''
                   \|     execute system('[ -f "$FZF_PICK" ] && echo goto || echo cd') fnameescape($FZF_PICK)
                   \| endif

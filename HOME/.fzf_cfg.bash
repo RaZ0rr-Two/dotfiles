@@ -1,8 +1,8 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
-fi
+#if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
+ # export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
+#fi
 
 # if [ -f ~/.fzf_test.bash ]; then
 #     source ~/.fzf_test.bash
@@ -16,8 +16,8 @@ fi
 #---------------------------------------------------------------------------------
 source "${MY_FZF_PATH}/shell/key-bindings.bash"
 
-FZF_FILE_COMMAND="fdfind . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
-FZF_FOLDER_COMMAND="fdfind . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_FILE_COMMAND="fd . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_FOLDER_COMMAND="fd . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_RG_COMMAND='rg --hidden --follow --glob "!.git" --files'
 
 FZF_FILE_PREVIEW=(--preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
@@ -117,7 +117,7 @@ bind -m vi-insert -x '"\ef\ef": __sdhfw__'
 __cda__() {
   local cmd dir
   cmd="${FZF_FOLDER_COMMAND} $HOME"
-	dir=$(eval "($cmd)" | fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]}) && printf 'cd %q' "$dir"
+	dir=$(eval "($cmd)" | fzf-tmux -m "${FZF_FOLDER_PREVIEW[@]}" ${FZF_FOLDER_WINDOW[@]}) && printf 'cd -- %q' "$dir"
 }
 # Bind cda() to Alt a
 bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`__cda__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
@@ -131,7 +131,7 @@ __cdf__() {
    local file
    local dir
 	 local cmd
-	 # cmd="${some_command:-"command fdfind . $HOME --type f --color=never --follow --hidden 2> /dev/null "}"
+	 # cmd="${some_command:-"command fd . $HOME --type f --color=never --follow --hidden 2> /dev/null "}"
 	 # file=$(eval "($cmd)" | fzf-tmux +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 	 file=$(fzf-tmux +m -q ${FZF_FILE_WINDOW[@]} "$1") && dir=$(dirname "$file") && cd "$dir"
 }
@@ -143,14 +143,14 @@ bind '"\ecf": "__cdf__\n"'
 # Open files from current directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
 onv() {
-  IFS=$'\n' files=($(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
+  IFS=$'\n' files=($(fd --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
 # Open files from $HOME directory recursively with vim(nvim)
 #---------------------------------------------------------------------------------
 anv() {
-  IFS=$'\n' files=($(fdfind . $HOME --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
+  IFS=$'\n' files=($(fd . $HOME --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf-tmux --query="$1" --multi ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'f2:execute(xdg-open {} 2> /dev/null &),ctrl-space:toggle-preview'))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
@@ -161,13 +161,13 @@ anv() {
 # Use fpfr to generate the list for directory completion using fdfind
 #---------------------------------------------------------------------------------
 fpfr() {
-  fdfind --hidden --type f --follow --exclude ".git" --exclude node_modules . "$1"
+  fd --hidden --type f --follow --exclude ".git" --exclude node_modules . "$1"
 }
 
 # Use dpfr to generate the list for directory completion using fdfind
 #---------------------------------------------------------------------------------
 dpfr() {
-  fdfind --type d --hidden --follow --exclude ".git" --exclude node_modules . "$1"
+  fd --type d --hidden --follow --exclude ".git" --exclude node_modules . "$1"
 }
 
 # Interactive search.

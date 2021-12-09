@@ -8,7 +8,7 @@ export PATH=$PATH:$HOME/.local/bin
 # export EDITOR="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage"
 # man pages as neovim
 # export MANPAGER="$HOME/Softwares/Installed/Terminal/nvim/nightly/nvim.appimage +Man!"
-export PATH="$PATH:$HOME/Softwares/Installed/Neovim/bin"
+# export PATH="$PATH:$HOME/Softwares/Installed/Neovim/bin"
 if [[ -x "$(command -v nvim)" ]]; then
     export EDITOR='nvim'
 		export MANPAGER="nvim -c Man!"

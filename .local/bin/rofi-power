@@ -19,16 +19,18 @@ chosen=$(printf '%s;%s;%s;%s;%s\n' "$power_off" "$reboot" "$lock" "$suspend" \
 case "$chosen" in
     "$power_off")
         ~/.local/bin/rofi-prompt --query 'Shutdown?' && poweroff
+        # ~/.local/bin/rofi-prompt --query 'Shutdown?' && dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.PowerOff" boolean:true
         ;;
 
     "$reboot")
         ~/.local/bin/rofi-prompt --query 'Reboot?' && reboot
+        # ~/.local/bin/rofi-prompt --query 'Reboot?' && dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Reboot" boolean:true
         ;;
 
     "$lock")
         # TODO Add your lockscreen command.
         # xdg-screensaver lock
-				betterlockscreen -l blur
+				betterlockscreen -l --blur 0.0
 				;;
 
     "$suspend")

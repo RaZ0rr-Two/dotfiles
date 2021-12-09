@@ -1,8 +1,8 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
-fi
+#if [[ ! "$PATH" == *${MY_FZF_PATH}/bin* ]]; then
+#  export PATH="${PATH:+${PATH}:}${MY_FZF_PATH}/bin"
+#fi
 
 # Auto-completion
 # ---------------
@@ -12,8 +12,8 @@ fi
 # ------------
 source "${MY_FZF_PATH}/shell/key-bindings.zsh"
 
-FZF_FILE_COMMAND="fdfind . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
-FZF_FOLDER_COMMAND="fdfind . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_FILE_COMMAND="fd . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
+FZF_FOLDER_COMMAND="fd . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_RG_COMMAND='rg --hidden --follow --glob "!.git" --files'
 
 FZF_FILE_PREVIEW=(--preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-z:ignore' --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)')
@@ -124,7 +124,7 @@ __cda__() {
     return 0
   fi
   zle push-line # Clear buffer. Auto-restored on next prompt.
-  BUFFER="cd ${(q)dir}" #"
+  BUFFER="cd -- ${(q)dir}" #"
   zle accept-line
   local ret=$?
   unset dir # ensure this doesn't end up appearing in prompt expansion
@@ -155,7 +155,7 @@ onv() {
   local files
 
   # files=(${(f)"${FZF_FD_COMMAND[@]}"})
-  files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
+  files=(${(f)"$(fd --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
   # files=("$(fdfind --type f --color=never --hidden --follow | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)' --height=80% --layout=reverse)")
 
   if [[ -n $files ]]
@@ -176,7 +176,7 @@ anv() {
     cd
     local files
 
-    files=(${(f)"$(fdfind --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
+    files=(${(f)"$(fd --type f --color=never --hidden --follow --exclude .git --exclude node_modules | fzf -m ${FZF_FILE_WINDOW[@]} --preview 'bat --color=always --line-range :100 {}' --bind 'ctrl-space:toggle-preview,f2:execute(xdg-open {} 2> /dev/null &)')"})
 
     if [[ -n $files ]]
     then
