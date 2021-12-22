@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+# Auto screen-locker
+xset s 600
+betterlockscreen -u "$HOME/.local/share/lock.png" &
+xss-lock -- betterlockscreen -l --blur 0.0 &
+# xss-lock -n xscreensaver-command -activate -- betterlockscreen -l --blur 0.0 &
+
 # feh --bg-fill $HOME/Pictures/Walls/Minimal/521028.png
-feh --bg-fill $HOME/Pictures/Walls/1366x768/736398-anime-wallpaper-hd.jpg
+feh --bg-fill $HOME/.local/share/wall.png
 
 ~/.conky/Mine/branch/ConkybooterBranch &
 
@@ -16,4 +22,3 @@ picom &
 sxhkd &
 blueman-applet &
 nm-applet &
-

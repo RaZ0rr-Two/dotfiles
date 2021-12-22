@@ -1,4 +1,7 @@
-
+vim.cmd([[
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+]])
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
@@ -15,18 +18,21 @@ require('nvim-treesitter.configs').setup {
 		-- for `nvim-treesitter/playground`
 		"query",
 	},
-  highlight = {
-    enable = true, -- false will disable the whole extension
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<cr>',
-      -- init_selection = 'gnn',
-      node_incremental = '<tab>',
-      scope_incremental = 'grc',
-      node_decremental = '<s-tab>',
-    },
+	-- Install languages synchronously (only applied to `ensure_installed`)
+	sync_install = false,
+	highlight = {
+		enable = true, -- false will disable the whole extension
+		additional_vim_regex_highlighting = false,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			-- init_selection = 'gnn',
+			init_selection = '<cr>',
+			node_incremental = '<tab>',
+			scope_incremental = 'grc',
+			node_decremental = '<s-tab>',
+		},
   },
   indent = {
     enable = true,
@@ -67,6 +73,15 @@ require('nvim-treesitter.configs').setup {
 
       },
     },
+		swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>tss"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>tsS"] = "@parameter.inner",
+      },
+    },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
@@ -85,6 +100,14 @@ require('nvim-treesitter.configs').setup {
       goto_previous_end = {
         ['[M'] = '@function.outer',
         ['[]'] = '@class.outer',
+      },
+    },
+		lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["<leader>tsd"] = "@function.outer",
+        ["<leader>tsD"] = "@class.outer",
       },
     },
   },

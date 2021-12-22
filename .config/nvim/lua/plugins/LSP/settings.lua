@@ -1,10 +1,9 @@
-
 --##########################################################################################################
 -- LSP Keybindings and completion---------------------------------------------------------------------------
 --###################################################################################################################
 
 local nvim_lsp = require('lspconfig')
-
+vim.lsp.set_log_level 'debug'
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -39,7 +38,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Set completeopt to have a better completion experience
--- vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -51,57 +50,65 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
 local servers = { 'cmake','vimls'}
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { 
-	--root_dir = vim.loop.cwd;
-	capabilities = capabilities;
-	on_attach = on_attach;
-	flags = {
-	    debounce_text_changes = 150,
-	}
-    }
-end
+-- for _, lsp in ipairs(servers) do
+-- 	nvim_lsp[lsp].setup { 
+-- 		--root_dir = vim.loop.cwd;
+-- 		capabilities = capabilities;
+-- 		on_attach = on_attach;
+-- 		flags = {
+-- 			debounce_text_changes = 150,
+-- 		}
+-- 	}
+-- end
 
-nvim_lsp.bashls.setup { 
-    --root_dir = vim.loop.cwd;
-    filetypes = { "sh", "bash", "zsh" },
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {
-			debounce_text_changes = 150,
-    }
-}
+-- nvim_lsp.bashls.setup { 
+--     --root_dir = vim.loop.cwd;
+--     filetypes = { "sh", "bash", "zsh" },
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     flags = {
+-- 			debounce_text_changes = 150,
+--     }
+-- }
 --##########################################################################################################
 -- C++ config------------------------------------------
 --###################################################################################################################
 
 -- require('LSP/ccpp')
 -- local cclscachepath = vim.fn.getenv("HOME").."/tmp/ccls-cache"
-nvim_lsp.clangd.setup {
-    cmd = { 
-	"clangd",  
-	"--background-index",
-    },
-    -- root_dir = require('lspconfig/util').root_pattern("compile_commands.json", "compile_flags.txt", ".ccls"),
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {
-			debounce_text_changes = 150,
-    },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    -- on_init = function to handle changing offsetEncoding
-    -- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git") or dirname
+require'lspconfig'.clangd.setup{
+		capabilities = capabilities,
+		on_attach = on_attach,
 }
+-- nvim_lsp.clangd.setup {
+-- 	cmd = { 
+-- 		"clangd",  
+-- 		"--background-index",
+-- 	},
+-- 	-- root_dir = require('lspconfig/util').root_pattern("compile_commands.json", "compile_flags.txt", ".ccls"),
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- 	flags = {
+-- 		debounce_text_changes = 150,
+-- 	},
+-- 	filetypes = { "c", "cpp", "objc", "objcpp" },
+-- 	-- on_init = function to handle changing offsetEncoding
+-- 	-- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git") or dirname
+-- }
 
-require("null-ls").config({
-    -- you must define at least one source for the plugin to work
-    sources = { require("null-ls").builtins.formatting.stylua }
-})
-require("lspconfig")["null-ls"].setup({
-    -- see the nvim-lspconfig documentation for available configuration options
-    on_attach = on_attach,
-		capabilities = capabilities
-})
+-- local null_ls = require("null-ls")
+-- local null_sources = {
+-- 		null_ls.builtins.formatting.stylua.with({
+-- 			filetypes = { "lua"},
+-- 		}),
+--     -- null_ls.builtins.formatting.prettier,
+--     -- null_ls.builtins.diagnostics.write_good,
+--     -- null_ls.builtins.code_actions.gitsigns,
+-- }
+-- null_ls.setup({
+--     -- you must define at least one source for the plugin to work
+--     sources = null_sources,
+-- })
 
 -- require('LSP/ccpp')
 -- local cclscachepath = vim.fn.getenv("HOME").."/tmp/ccls-cache"

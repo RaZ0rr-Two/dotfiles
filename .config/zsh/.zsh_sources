@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+path+='/sbin:/usr/sbin'
 export PATH=$PATH:$HOME/.local/bin
 
 #----------------------------------------------------
@@ -16,14 +17,28 @@ if [[ -x "$(command -v nvim)" ]]; then
     export MANWIDTH=999
 fi
 
+#----------------------------------------------------
+# >>> conda initialize >>>
+#----------------------------------------------------
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/razorr/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/razorr/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/razorr/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/razorr/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 #Dotfiles path
 export DOTFDIR=gFolder/RaZ0rr/dotfiles
 
 #Wine Config
 export WINEPREFIX=~/GameZ/Wine
-
-#For iw---------------------------------------------
-path+='/sbin:/usr/sbin' # for iw
 
 #----------------------------------------------------
 # zoxide - jumper
@@ -43,25 +58,29 @@ fi
 #----------------------------------------------------
 # For ROOT
 #----------------------------------------------------
-export ROOTSYS="$HOME/Softwares/Installed/Build/root"
-
-export PATH=$ROOTSYS/bin:$PATH
-
-export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+if [ -x "$(command -v root)" ]; then 
+	export ROOTSYS="$HOME/Softwares/Installed/Build/root"
+	export PATH=$ROOTSYS/bin:$PATH
+	export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+fi
 
 #----------------------------------------------------
 # Pythia 8
 #----------------------------------------------------
-export PYTHIA8="$HOME/Softwares/Installed/Pythia/pythia8303"
-export PYTHIA8DATA=$PYTHIA8/share/Pythia8/xmldoc
-export PATH=$PYTHIA8/bin:$PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PYTHIA8/lib
+if [ -x "$(command -v pythia)" ]; then 
+	export PYTHIA8="$HOME/Softwares/Installed/Pythia/pythia8303"
+	export PYTHIA8DATA=$PYTHIA8/share/Pythia8/xmldoc
+	export PATH=$PYTHIA8/bin:$PATH
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PYTHIA8/lib
+fi
 
 #----------------------------------------------------
 # GO language
 #----------------------------------------------------
-export GOPATH=${HOME}/go
-export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin
+if [ -x "$(command -v go)" ]; then 
+	export GOPATH=${HOME}/go
+	export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin
+fi
 
 #----------------------------------------------------
 #Tmux 

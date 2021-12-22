@@ -38,7 +38,15 @@ vim.g.Illuminate_highlightUnderCursor = 0
 vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '<leader>ll', [[:exe 'IlluminationToggle!' | echo "Illuminate toggled"<cr>]], {noremap = true})
-
+-- Don't highlight word under cursor (default: 1)
+vim.g.Illuminate_highlightUnderCursor = 1
+vim.cmd[[
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedCurWord cterm=italic gui=italic
+    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
+]]
 -- require('nvim_comment').setup(
 -- {
 --   -- lINTERS PREFER COMMENT AND LINE TO HAVE A SPACE IN BETWEEN MARKERS
@@ -98,11 +106,12 @@ vim.api.nvim_set_keymap('n','<leader>clr', '<cmd>ColorizerToggle | echo "Coloriz
 
 --##########################################################################################################
 -- Fastfold create text-object ----------------------------------------------------------------------------------------------------
+-- (Set in vimscript/plugins/fastfold.vim)
 --###################################################################################################################
-vim.api.nvim_set_keymap('n','zuz', '<Plug>(FastFoldUpdate)', {})
-vim.g.fastfold_savehook = 1
-vim.g.fastfold_fold_command_suffixes = {'x','X','a','A','o','O','c','C','r','R','m','M','i','n','N'}
-vim.g.fastfold_fold_movement_commands = {']z', '[z', 'zj', 'zk'}
+-- vim.api.nvim_set_keymap('n','zuz', '<Plug>(FastFoldUpdate)', {})
+-- vim.g.fastfold_savehook = 1
+-- vim.g.fastfold_fold_command_suffixes = {'x','X','a','A','o','O','c','C','r','R','m','M','i','n','N'}
+-- vim.g.fastfold_fold_movement_commands = {']z', '[z', 'zj', 'zk'}
 -- vim.api.nvim_set_keymap('x','iz',':<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('x','az',':<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>', {noremap = true, silent = true})
 -- xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>

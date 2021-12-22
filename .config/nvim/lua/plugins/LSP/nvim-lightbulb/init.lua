@@ -1,5 +1,8 @@
 -- Showing defaults
-local cfg = {
+require'nvim-lightbulb'.update_lightbulb {
+    -- LSP client names to ignore
+    -- Example: {"sumneko_lua", "null-ls"}
+    ignore = {"sumneko_lua", "null-ls"},
     sign = {
         enabled = true,
         -- Priority of the gutter sign
@@ -29,6 +32,8 @@ local cfg = {
         enabled = false,
         -- Text to show at virtual text
         text = "💡",
+        -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
+        hl_mode = "replace",
     },
     status_text = {
         enabled = false,

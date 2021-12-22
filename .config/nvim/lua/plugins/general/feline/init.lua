@@ -16,7 +16,7 @@ local components = {
 	inactive = {{}, {}, {}},
 }
 
-local colors = {
+local my_theme = {
 	bg = '#282828',
 	black = '#282828',
 	yellow = '#d8a657',
@@ -172,17 +172,25 @@ components.active[1][1] = {
 components.active[1][2] = {
 	-- provider = ' NV-IDE ',
 	provider = function()
-		return '  ' .. vi_mode_utils.get_vim_mode()
+		-- return '  ' .. vi_mode_utils.get_vim_mode()
+		return vi_mode_utils.get_vim_mode()
 	end,
 	hl = function()
 		local val = {}
-
+		val.name = vi_mode_utils.get_mode_highlight_name()
 		val.fg = vi_mode_utils.get_mode_color()
 		val.bg = 'black'
 		val.style = 'bold'
-
 		return val
 	end,
+	icon = {
+		str = '  ',
+		hl = {
+			name = 'StatusComponentVimMode',
+			vimode_hl,
+			style = 'bold',
+		}
+	},
 	right_sep = {
 		str = ' ',
 		hl = {
@@ -225,18 +233,20 @@ components.active[1][3] = {
 components.active[1][4] = {
 	provider = {
 		name = 'file_info',
-		colored_icon = false,
+		colored_icon = true,
 		opts = {
 			type = 'unique-short'
 		}
 	},
+	icon = '',
 	enabled = is_buffer_empty,
 	hl = {
-		fg = colors.blue,
+		fg = 'blue',
 		bg = 'bg',
 		style = 'bold'
 	},
-	left_sep = ' '
+	right_sep = " ",
+	--left_sep = ' '
 }
 
 components.active[1][5] = {
@@ -316,7 +326,8 @@ components.active[2][1] = {
 -- diagnosticErrors
 components.active[2][2] = {
 	provider = 'diagnostic_errors',
-	enabled = function() return lsp.diagnostics_exist('Error') end,
+	-- enabled = function() return lsp.diagnostics_exist('Error') end,
+	enabled = require('feline.providers.lsp').diagnostics_exist(vim.diagnostic.severity.ERROR),
 	hl = {
 		fg = 'red',
 		style = 'bold'
@@ -325,7 +336,7 @@ components.active[2][2] = {
 -- diagnosticWarn
 components.active[2][3] = {
 	provider = 'diagnostic_warnings',
-	enabled = function() return lsp.diagnostics_exist('Warning') end,
+	enabled = require('feline.providers.lsp').diagnostics_exist(vim.diagnostic.severity.WARN),
 	hl = {
 		fg = 'yellow',
 		style = 'bold'
@@ -334,7 +345,7 @@ components.active[2][3] = {
 -- diagnosticHint
 components.active[2][4] = {
 	provider = 'diagnostic_hints',
-	enabled = function() return lsp.diagnostics_exist('Hint') end,
+	enabled = require('feline.providers.lsp').diagnostics_exist(vim.diagnostic.severity.HINT),
 	hl = {
 		fg = 'cyan',
 		style = 'bold'
@@ -343,7 +354,7 @@ components.active[2][4] = {
 -- diagnosticInfo
 components.active[2][5] = {
 	provider = 'diagnostic_info',
-	enabled = function() return lsp.diagnostics_exist('Information') end,
+	enabled = require('feline.providers.lsp').diagnostics_exist(vim.diagnostic.severity.HINT),
 	hl = {
 		fg = 'skyblue',
 		style = 'bold'
@@ -428,7 +439,7 @@ components.active[3][5] = {
 	enabled = fullBar,
 	right_sep = ' ',
 	hl = {
-		fg = colors.magenta,
+		fg = 'magenta',
 		style = 'bold'
 	}
 }
@@ -481,7 +492,7 @@ components.active[3][8] = {
 	-- bg = 'bg',
 	-- style = 'bold'
 	--    },
-	right_sep = ' '
+	-- right_sep = ' '
 }
 
 components.active[3][9] = bordersDecor.right
@@ -514,9 +525,9 @@ components.inactive[1][1] = {
 		' '
 	}
 }
-
+-- require('feline').use_theme(my_theme)
 require('feline').setup{
-	colors = colors,
+	theme = my_theme,
 	components = components,
 	vi_mode_colors = vi_mode_colors,
 	force_inactive = force_inactive,

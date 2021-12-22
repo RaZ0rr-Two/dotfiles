@@ -16,10 +16,9 @@ if (empty($TMUX))
   endif
 endif
 
-syntax on
+" syntax enable
 
 " colorscheme base16-onedark
 let g:onedark_style = 'darker'
 colorscheme onedark
 " colorscheme gruvbox
-

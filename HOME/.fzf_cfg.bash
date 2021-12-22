@@ -10,11 +10,26 @@
 
 # Auto-completion
 #---------------------------------------------------------------------------------
-[[ $- == *i* ]] && source "${MY_FZF_PATH}/shell/completion.bash" 2> /dev/null
+if [[ $- == *i* ]] 
+then
+	if [[ -d "/usr/share/fzf" ]] ; then
+		source "/usr/share/fzf/completion.bash" 2> /dev/null
+	elif [[ -d "${MY_FZF_PATH}/shell" ]] ; then
+		source "${MY_FZF_PATH}/shell/completion.bash" 2> /dev/null
+	fi
+fi
 
 # Key bindings
 #---------------------------------------------------------------------------------
-source "${MY_FZF_PATH}/shell/key-bindings.bash"
+if [[ -d "/usr/share/fzf" ]] ; then
+	source "/usr/share/fzf/key-bindings.bash" 2> /dev/null
+elif [[ -d "${MY_FZF_PATH}/shell" ]] ; then
+	source "${MY_FZF_PATH}/shell/key-bindings.bash"
+fi
+
+#---------------------------------------------------------------------------------
+#Custom fzf settings (keybindings & functions)
+#---------------------------------------------------------------------------------
 
 FZF_FILE_COMMAND="fd . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_FOLDER_COMMAND="fd . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
@@ -41,10 +56,6 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :100 {}' --bi
 export FZF_ALT_C_COMMAND=$FZF_FOLDER_COMMAND
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)' ${FZF_FOLDER_WINDOW[@]}"
 
-#---------------------------------------------------------------------------------
-#Custom fzf keybindings & functions
-#---------------------------------------------------------------------------------
-
 # CTRL-T + CTRL-T - Paste the selected file path(s) into the command line
 #---------------------------------------------------------------------------------
 __sff__() {
@@ -60,13 +71,11 @@ __sffw__() {
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-bind -m emacs-standard -x '"__FileSearch__": fzf-file-widget'
-bind -m emacs-standard '"\C-t": "__FileSearch__"'
-bind -x '"__HomeFileSearch__":"__sffw__"'
-bind '"\C-t\C-t":"__HomeFileSearch__"'
-#bind -m emacs-standard -x '"\C-t\C-t": sffw'
-# bind -m vi-command -x '"\C-tt": sffw'
-# bind -m vi-insert -x '"\C-tt": sffw'
+bind -x '"\C-t\C-t":"__sffw__"'
+# bind -x '"__FileSeach__": fzf-file-widget'
+# bind '"\C-t":"__FileSeach__"'
+# bind -x '"__HomeFileSearch__":"__sffw__"'
+# bind '"\C-t\C-t":"__HomeFileSearch__"'
 
 # alt-F - Paste the selected folder path(s) into the command line
 #---------------------------------------------------------------------------------
@@ -84,12 +93,9 @@ __sdfw__() {
   READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$selected${READLINE_LINE:$READLINE_POINT}"
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
-bind -m emacs-standard -x '"__FolderSearch__": __sdfw__'
-bind -m emacs-standard '"\ef": "__FolderSearch__"'
-# bind '"\ef": "sdfw\n"'
-# bind '"\ef":"\C-b\C-k \C-u`sdfw`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-# bind -m vi-command -x '"\ef": sdfw'
-# bind -m vi-insert -x '"\ef": sdfw'
+bind -m emacs-standard -x '"\ef": "__sdfw__"'
+# bind -m emacs-standard -x '"__FolderSearch__": __sdfw__'
+# bind -m emacs-standard '"\ef": "__FolderSearch__"'
 
 # alt-F+alt-F - Paste the selected folder path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------
@@ -109,8 +115,8 @@ __sdhfw__() {
 }
 
 bind -m emacs-standard -x '"\ef\ef": __sdhfw__'
-bind -m vi-command -x '"\ef\ef": __sdhfw__'
-bind -m vi-insert -x '"\ef\ef": __sdhfw__'
+# bind -m vi-command -x '"\ef\ef": __sdhfw__'
+# bind -m vi-insert -x '"\ef\ef": __sdhfw__'
 
 # (ALT-c)+(Alt-c) - cd into the selected directory from anywhere
 #---------------------------------------------------------------------------------
@@ -121,9 +127,10 @@ __cda__() {
 }
 # Bind cda() to Alt a
 bind -m emacs-standard '"\ec\ec": " \C-b\C-k \C-u`__cda__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-bind -m vi-command '"\ec\ec": "\C-z\ec\ec\C-z"'
-bind -m vi-insert '"\ec\ec": "\C-z\ec\ec\C-z"'
+# bind -m vi-command '"\ec\ec": "\C-z\ec\ec\C-z"'
+# bind -m vi-insert '"\ec\ec": "\C-z\ec\ec\C-z"'
 #bind -x '"\ev":cda'
+
 
 # cdf - cd into the directory of the selected file
 #---------------------------------------------------------------------------------

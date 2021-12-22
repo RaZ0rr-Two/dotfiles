@@ -23,7 +23,7 @@ spawn_with_rules alacritty
 
 # spawn an vifm in tag 2
 RULES=( floating=off focus=off tag=2 )
-spawn_with_rules alacritty -t Vifm -e ~/.local/bin/vifmrun
+spawn_with_rules alacritty -t Vifm -e zsh -c "~/.local/bin/vifmrun"
 
 # spawn an bottom (htop alternative) in tag 3
 RULES=( floating=off focus=off tag=3 )

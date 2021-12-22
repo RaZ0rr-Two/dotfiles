@@ -49,7 +49,7 @@ lua require('plugins/general/nvim-cmp')
 source $HOME/.config/nvim/vimscript/plugins/undotree.vim
 lua require('plugins/general/nvim-autopairs')
 lua require('plugins/general/kommentary')
-source $HOME/.config/nvim/vimscript/plugins/misc.vim
+" source $HOME/.config/nvim/vimscript/plugins/misc.vim
 source $HOME/.config/nvim/vimscript/plugins/fastfold.vim
 " lua require('plugins/general/nvim-tree')
 " lua require('plugins/general/nv-vsnip')
@@ -58,12 +58,13 @@ lua require('plugins/general/misc')
 
 " UI/Look -----------------------------------
 lua require('plugins/general/feline')
+"lua require('feline').setup()
 " lua require('plugins/general/galaxyline/disrupted')
 lua require('plugins/general/alpha')
 " source $HOME/.config/nvim/vimscript/plugins/startify.vim
 lua require('plugins/general/indent-blankline')
 lua require('plugins/general/nvim-bufferline')
-" lua require('plugins/general/vim-matchup')
+lua require('plugins/general/vim-matchup')
 "source $HOME/.config/nvim/vimscript/plugins/fernTree.vim
 "source $HOME/.config/nvim/vimscript/plugins/airline.vim
 "source $HOME/.config/nvim/vimscript/keys/nerdTree.vim

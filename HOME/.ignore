@@ -1,8 +1,12 @@
 .rpmdb/*
 .npm/*
+anaconda*/*
 .steam/*
+# **/Counter-Strike Global Offensive/*
 **/timeshift/*
 .cache/*
+# .conda/*
+# .cargo/*
 **/gFolder/RaZ0rr/github/dotfiles/*
 **/.ccls-cache/*
 **/ccls-cache/*

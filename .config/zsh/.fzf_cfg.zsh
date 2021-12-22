@@ -5,12 +5,27 @@
 #fi
 
 # Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "${MY_FZF_PATH}/shell/completion.zsh" 2> /dev/null
+#---------------------------------------------------------------------------------
+if [[ $- == *i* ]] 
+then
+	if [[ -d "/usr/share/fzf" ]] ; then
+		source "/usr/share/fzf/completion.zsh" 2> /dev/null
+	elif [[ -d "${MY_FZF_PATH}/shell" ]] ; then
+		source "${MY_FZF_PATH}/shell/completion.zsh" 2> /dev/null
+	fi
+fi
 
 # Key bindings
-# ------------
-source "${MY_FZF_PATH}/shell/key-bindings.zsh"
+#---------------------------------------------------------------------------------
+if [[ -d "/usr/share/fzf" ]] ; then
+	source "/usr/share/fzf/key-bindings.zsh" 2> /dev/null
+elif [[ -d "${MY_FZF_PATH}/shell" ]] ; then
+	source "${MY_FZF_PATH}/shell/key-bindings.zsh"
+fi
+
+#---------------------------------------------------------------------------------
+#Custom fzf settings (keybindings & functions)
+#---------------------------------------------------------------------------------
 
 FZF_FILE_COMMAND="fd . --type f --color=never --hidden --follow --exclude .git --exclude node_modules"
 FZF_FOLDER_COMMAND="fd . --type d --color=never --hidden --follow --exclude .git --exclude node_modules"
@@ -36,10 +51,6 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :100 {}' --bi
 
 export FZF_ALT_C_COMMAND=$FZF_FOLDER_COMMAND
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100' --bind=ctrl-z:ignore --bind 'ctrl-space:toggle-preview,ctrl-o:execute(xdg-open {} 2> /dev/null &)' ${FZF_FOLDER_WINDOW[@]}"
-
-#---------------------------------------------------------------------------------
-#Custom fzf keybindings & functions
-#---------------------------------------------------------------------------------
 
 # CTRL-T + CTRL-T - Paste the selected file path(s) from $HOME into the command line
 #---------------------------------------------------------------------------------

@@ -95,9 +95,8 @@ command! reload :write | restart full
 " fileviewer *[^/],.*[^/] bat --color=always --line-range :100 %c
 " fileviewer *.[a-z],*.[0-9] bat --color=always --line-range :100 %c
 " fileviewer * file -b %c
-fileviewer *.cc,*.hh,*.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p
 
-" fileviewer * defviewer %c
+fileviewer *.cc,*.hh,*.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p
 
 fileviewer */ tree %c -L 1 --dirsfirst
 fileviewer ../ tree %c -L 1 --dirsfirst
@@ -158,6 +157,8 @@ fileviewer {*.docx},
          \ docx2txt.pl %f -
 
 fileviewer *.[a-z] bat --color=always --line-range :100 %c
+fileviewer .* bat --color=always --line-range :100 %c
+fileviewer * defviewer %c
 
 "----------------------------------------------------------------------------------------
 
@@ -408,7 +409,11 @@ nnoremap oo :!$EDITOR %f<cr>
 nnoremap OO :!thunar %f &<cr>
 
 " Open file in the background using its default program
-nnoremap gb :file &<cr>l
+nnoremap gb :!xdg-open %f &<cr>
+" nnoremap gb :file &<cr>l
+
+nnoremap <PageDown>  <C-w>w5j<C-w>w
+nnoremap <PageUp>    <C-w>w5k<C-w>w
 
 " Interaction with system clipboard
 if has('win')

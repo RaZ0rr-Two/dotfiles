@@ -14,8 +14,8 @@ set smartcase
 set nohlsearch
 set inccommand=nosplit
 set nowrap                              " Display long lines as just one line
-" set pumheight=10                        " Makes popup menu smaller
-" set fileencoding=utf-8                  " The encoding written to file
+set pumheight=10                        " Makes popup menu smaller
+set fileencoding=utf-8                  " The encoding written to file
 set cmdheight=2                         " More space for displaying messages
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set mouse=a                             " Enable your mouse
@@ -37,15 +37,14 @@ set showtabline=2                       " Always show tabs
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 " set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
-" set formatoptions-=cro                  " Stop newline continution of comments
-set clipboard+=unnamedplus               " Copy paste between vim and everything else
+set formatoptions-=cro                  " Stop newline continution of comments
+set clipboard+=unnamedplus              " Copy paste between vim and everything else
 set autochdir                           " Your working directory will always be the same as your working directory
 set laststatus=2
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=99
-" set foldlevelstart=99
+set foldmethod=syntax
+set foldlevelstart=99
+" set foldlevel=99
 
 set pastetoggle=<leader>p
 " let currentMode = mode()

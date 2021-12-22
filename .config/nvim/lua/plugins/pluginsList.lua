@@ -2,7 +2,11 @@
 -- Bootstrap ( CHeck if "packer.nvim" exists or not ) 
 -- ########################################################
 
-require('plugins/general/packer/check')
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
 
 -- ########################################################
 -- All the used plugins 
@@ -116,7 +120,7 @@ require('packer').startup({
 
 		-- Statusline ------------------------------------
 		use {
-			'famiu/feline.nvim',
+			'feline-nvim/feline.nvim',
 			requires = 'kyazdani42/nvim-web-devicons',
 			-- Enable for default status bar
 			-- config = function() 
@@ -160,9 +164,13 @@ require('packer').startup({
 		-- Collection of configurations for built-in LSP client
 		use 'neovim/nvim-lspconfig'
 
-		use({ "jose-elias-alvarez/null-ls.nvim",
-    requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"}
-    })
+		-- use({
+		-- 	"jose-elias-alvarez/null-ls.nvim",
+			-- config = function()
+			-- 	require("null-ls").setup()
+			-- end,
+		-- 	requires = { "nvim-lua/plenary.nvim" },
+		-- })
 
 		-- Lsp better functioning. -----------------------
 		use  {
@@ -184,14 +192,23 @@ require('packer').startup({
 		--------------------------------------------------
 
 		-- Highlight, edit, and navigate code using a fast incremental parsing library
-		use 'nvim-treesitter/nvim-treesitter'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
 
 		-- Additional textobjects for treesitter ---------
-		use 'nvim-treesitter/nvim-treesitter-textobjects'
+		use {
+			'nvim-treesitter/nvim-treesitter-textobjects',
+			requires = {'nvim-treesitter/nvim-treesitter'}
+		}
 
 		-- Folding faster --------------------------------
 		use 'Konfekt/FastFold'
-		-- use 'zhimsel/vim-stay'
+
+		if packer_bootstrap then
+		  require('packer').sync()
+		end
 
 	end,
 
@@ -209,3 +226,12 @@ require('packer').startup({
 	}
 
 })
+
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost pluginsList.lua source <afile> | echom "Updating and Recompiling plugins" | PackerSync
+		" autocmd BufWritePost **/pluginsList.lua lua packerSyncandSource()
+    " autocmd BufWritePost **/pluginsList.lua echo "Updating plugins" | :PackerSync | source $MYVIMRC
+  augroup end
+]])

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 nvmk() { mkdir -p "$(dirname "$1")" && ${EDITOR:-vim} "$1" ; }
 
 packF(){
