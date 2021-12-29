@@ -98,7 +98,7 @@ command! reload :write | restart full
 
 fileviewer *.cc,*.hh,*.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p
 
-fileviewer */ tree %c -L 1 --dirsfirst
+fileviewer */,.*/ tree %c -L 1 --dirsfirst
 fileviewer ../ tree %c -L 1 --dirsfirst
 
 fileviewer *.pdf

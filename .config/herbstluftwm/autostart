@@ -107,6 +107,7 @@ hc keybind $Mod-Shift-space floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-space set_attr clients.focus.floating toggle
 hc keybind $Mod-m set_attr clients.focus.minimized true
+hc keybind $Mod-Control-r set_attr clients.focus.decorated toggle
 maximizeWindow=~/.config/herbstluftwm/scripts/maximize.sh
 hc keybind $Mod-Shift-m spawn $maximizeWindow
 # restore all minimized windows of the focused tag
@@ -145,25 +146,27 @@ hc mousebind $Mod-Button3 resize
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222'
-hc set frame_border_normal_color '#101010'
-hc set frame_bg_normal_color '#565656'
-# hc set frame_bg_normal_color '#00000000'
-# hc set frame_bg_active_color '#00000000'
-hc set frame_bg_active_color '#345F0C'
-hc set frame_border_width 1
+hc set frame_border_active_color '#345F0C'
+hc set frame_border_normal_color '#565656'
+# hc set frame_bg_normal_color '#101010'
+# hc set frame_bg_active_color '#345F0C'
+hc set frame_bg_normal_color '#00000000'
+hc set frame_bg_active_color '#00000000'
+hc set frame_border_width 5
 hc set always_show_frame off
 hc set frame_bg_transparent on
 hc set frame_transparent_width 0
 hc set frame_gap 10
 
 hc attr theme.title_height 15
+hc attr theme.title_when always
 hc attr theme.title_font 'Dejavu Sans:pixelsize=12'  # example using Xft
 # hc attr theme.title_font '-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
-hc attr theme.padding_top 2  # space below the title's baseline (i.e. text depth)
+hc attr theme.title_depth 3  # space below the title's baseline
 hc attr theme.active.color '#345F0Cef'
 hc attr theme.title_color '#ffffff'
-hc attr theme.normal.color '#323232dd'
+hc attr theme.normal.color '#32323200'
+# hc attr theme.normal.color '#323232dd'
 hc attr theme.urgent.color '#7811A1dd'
 hc attr theme.normal.title_color '#898989'
 hc attr theme.inner_width 1
@@ -185,10 +188,10 @@ hc attr theme.active.outer_width 1
 hc attr theme.background_color '#141414'
 
 hc pad 0 35 5 5 5
-hc set window_gap 0
+hc set window_gap 5
 hc set frame_padding 0
 hc set smart_window_surroundings on
-hc set smart_frame_surroundings on
+hc set smart_frame_surroundings off
 hc set mouse_recenter_gap 0
 
 # rules
@@ -201,7 +204,7 @@ hc rule class=obs floating=on floatplacement=center # float obs studio
 hc rule class=Steam tag=8 floating=on floatplacement=center # float Steam
 hc rule title=Steam tag=8 floating=on floatplacement=center # float Steam
 hc rule title=alsamixer floating=on floatplacement=smart # float Alsamixer volume control
-hc rule title=tdrop floating=on  												# float tdrop dropdown terminal
+hc rule title=tdrop floating=on floatplacement=smart 	# float tdrop dropdown terminal
 hc rule title=nmtui floating=on floatplacement=center # float nmtui network manager
 hc rule class=Pavucontrol floating=on floatplacement=center # float pulse audio volume control
 #hc rule focus=off # normally do not focus new clients

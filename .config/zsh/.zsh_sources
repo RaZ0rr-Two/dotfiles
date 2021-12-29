@@ -34,10 +34,15 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-#Dotfiles path
+# Dotfiles path
 export DOTFDIR=gFolder/RaZ0rr/dotfiles
 
-#Wine Config
+# Qt5 applications theme configuration
+if (( $+commands[qt5ct] )) ; then
+	export QT_QPA_PLATFORMTHEME=qt5ct
+fi
+
+# Wine Config
 export WINEPREFIX=~/GameZ/Wine
 
 #----------------------------------------------------

@@ -44,21 +44,21 @@ conky.config = {
 };
 
 conky.text = [[
-${voffset 50}
-${goto 220}${voffset -20}${color0}${font}${execi 3600 echo $USER}
-${goto 70}${voffset -20}${color}${font}Temperature
+${voffset 20}
+${goto 220}${voffset 0}${color0}${font}${execi 3600 echo $USER}
+${goto 70}${voffset -30}${color}${font}Temperature
 ${goto 110}${color}${font}${acpitemp}% 
-${goto 10}${voffset 55}${font}\
+${goto 10}${voffset 70}${font}\
 ${offset 10}${font Roboto:size=40}${time $template7}
-${voffset -80}${goto 220}${voffset 40}${font}Battery
+${voffset -80}${goto 220}${voffset 20}${font}Battery
 ${alignc -100}${font}\
 ${if_existing /sys/class/power_supply/BAT0}${battery_percent BAT0}%\
 ${else}\
 ${if_existing /sys/class/power_supply/BAT1}${battery_percent BAT1}%${else}%${endif}${endif}
-${voffset 35}${color0}${goto 60}ROOT
+${voffset 25}${color0}${goto 60}ROOT
 ${goto 50}${font}${fs_used /}
 ${goto 50}${font}${fs_free /}
-${voffset -60}${color0}${goto 170}HOME
+${voffset -70}${color0}${goto 170}HOME
 ${goto 160}${font}${fs_used /home}
 ${goto 160}${font}${fs_free /home}
 ${voffset 80}${image ~/.conky/Mine/branch/left/lsd.png -p 10,0 -s 355x502}

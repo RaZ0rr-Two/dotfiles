@@ -23,7 +23,8 @@ control + alt + s ; p
 
 #tdrop
 control + alt + s ; t
-		tdrop -ma alacritty -t tdrop
+		tdrop -y 40 alacritty -t tdrop
+		# tdrop -ma alacritty -t tdrop
 		# tdrop -ma -y 50 alacritty
 
 #jgmenu

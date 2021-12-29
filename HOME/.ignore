@@ -6,7 +6,7 @@ anaconda*/*
 **/timeshift/*
 .cache/*
 # .conda/*
-# .cargo/*
+.cargo/*
 **/gFolder/RaZ0rr/github/dotfiles/*
 **/.ccls-cache/*
 **/ccls-cache/*
